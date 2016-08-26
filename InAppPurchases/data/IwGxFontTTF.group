@@ -1,0 +1,20 @@
+CIwResGroup
+{
+	name FontTTF
+
+	CIwGxFont
+	{
+		name "Serif_24"
+
+		ttf ".\Fonts\Serif.ttf"
+		ttfPointSize 24
+	}
+
+	CIwGxFont
+	{
+        name "Kaushan_10"
+
+        ttf ".\Fonts\KaushanScript-Regular.otf"
+		ttfPointSize 10
+	}
+}

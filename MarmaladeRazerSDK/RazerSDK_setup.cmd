@@ -1,0 +1,2 @@
+SET JAVA_HOME=c:\NVPACK\jdk1.7.0_71
+SET NDK_ROOT=C:\NVPACK\android-ndk-r10e

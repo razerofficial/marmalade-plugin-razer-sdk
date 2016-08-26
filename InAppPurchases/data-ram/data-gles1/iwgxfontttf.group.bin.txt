@@ -1,0 +1,19 @@
+ResGroupResources:
+	CIwGxFontTTFont (0xc084661d)
+		"Serif" (0x1059573e)
+		Size: 1829410
+	CIwGxFontTTFont (0xc084661d)
+		"KaushanScript-Regular" (0xf203e284)
+		Size: 89182
+	ResList 'CIwGxFontTTFont' pos:38 size:1918602
+
+	CIwGxFont (0xa68776be)
+		"Serif_24" (0xd919143)
+		Size: 35
+	CIwGxFont (0xa68776be)
+		"Kaushan_10" (0x9170a590)
+		Size: 35
+	ResList 'CIwGxFont' pos:1918640 size:80
+
+ResGroupResources: Wrote 1918686 bytes to CIwResGroup "FontTTF"
+

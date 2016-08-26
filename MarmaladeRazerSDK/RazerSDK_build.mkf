@@ -1,0 +1,145 @@
+#
+# Copyright (C) 2012-2016 Razer, Inc.
+#
+#  Licensed under the Apache License, Version 2.0 (the "License");
+#  you may not use this file except in compliance with the License.
+#  You may obtain a copy of the License at
+# 
+#      http://www.apache.org/licenses/LICENSE-2.0
+#
+#  Unless required by applicable law or agreed to in writing, software
+#  distributed under the License is distributed on an "AS IS" BASIS,
+#  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+#  See the License for the specific language governing permissions and
+#  limitations under the License.
+#
+# mkf file for building extension RazerSDK.
+# NOTE: This file was originally written by the extension builder, but will not
+# be overwritten (unless --force is specified) and is intended to be modified.
+display_name "Extensions/RazerSDK"
+
+includepath source/h
+includepath h
+
+defines
+{
+    #Define the verbose channel to be off by default (but controllable by icf)
+    IW_TRACE_CHANNEL_RAZERSDK_VERBOSE=2
+
+    #This macro indicates that this extension is being built
+    S3E_EXT_RAZERSDK
+}
+
+#This command re-generates the relevant source files from the s4e when
+#the mkb is run
+extension
+{
+    ("$MARMALADE_ROOT/s3e/edk/builder")
+    "edk_build RazerSDK.s4e"
+}
+
+#include the extension builder subproject
+subproject "$MARMALADE_ROOT/s3e/edk"
+
+if {{defined I3D_OS_IPHONE}}
+{
+    files
+    {
+        ["source"]
+        (use_first_found, source/iphone, source/generic)
+        RazerSDK_platform.mm
+        #Add any iphone-specific files here
+    }
+}
+
+if {{defined I3D_OS_WINDOWS}}
+{
+    files
+    {
+        ["source"]
+        (use_first_found, source/windows, source/generic)
+        RazerSDK_platform.cpp
+        #Add any windows-specific files here
+    }
+}
+
+if {{defined S3E_ANDROID}}
+{
+    files
+    {
+		["source"]
+		(use_first_found, source/android, source/generic)
+		RazerSDK_platform.cpp
+		#Add any android-specific files here
+		RazerSDK_Bitmap.cpp
+		RazerSDK_BitmapConfig.cpp
+		RazerSDK_Bundle.cpp
+		RazerSDK_CallbackSingleton.cpp
+		RazerSDK_CallbacksInitPlugin.cpp
+		RazerSDK_CallbacksRequestGamerInfo.cpp
+		RazerSDK_CallbacksRequestProducts.cpp
+		RazerSDK_CallbacksRequestPurchase.cpp
+		RazerSDK_CallbacksRequestReceipts.cpp
+		RazerSDK_CallbacksShutdown.cpp
+		RazerSDK_Color.cpp
+		RazerSDK_ExtensionGamerInfo.cpp
+		RazerSDK_ExtensionProduct.cpp
+		RazerSDK_ExtensionPurchaseResult.cpp
+		RazerSDK_ExtensionReceipt.cpp
+		RazerSDK_InputStream.cpp
+		RazerSDK_InputView.cpp
+		RazerSDK_JSONArray.cpp
+		RazerSDK_JSONObject.cpp
+		RazerSDK_OutputStream.cpp
+		RazerSDK_Controller.cpp
+		RazerSDK_register.cpp
+		RazerSDK.cpp
+		RazerSDK_Plugin.cpp
+		RazerSDK_String.cpp
+    }
+}
+
+if {{defined I3D_OS_OSX}}
+{
+    files
+    {
+        ["source"]
+        (use_first_found, source/osx, source/generic)
+        RazerSDK_platform.mm
+        #Add any osx-specific files here
+    }
+}
+
+if {{defined I3D_OS_LINUX and not defined S3E_ANDROID}}
+{
+    files
+    {
+        ["source"]
+        (use_first_found, source/linux, source/generic)
+        RazerSDK_platform.cpp
+        #Add any linux-specific files here
+    }
+}
+
+files
+{
+
+    # Add any platform-independent files here
+    # Note that if the file exists in the platform-specific directory
+    # it will be taken from there instead of 'generic'
+    RazerSDK_register.cpp
+    RazerSDK.cpp
+
+    ["h"]
+    (source/h)
+    RazerSDK_internal.h
+    RazerSDK_autodefs.h
+
+    ["docs"]
+    (interface)
+    RazerSDK.defines.txt
+
+    []
+    (.)
+    RazerSDK.s4e
+}

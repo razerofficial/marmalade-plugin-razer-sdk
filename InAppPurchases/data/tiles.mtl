@@ -1,0 +1,15 @@
+// General materials
+
+CIwMaterial
+{
+	name "button_active"
+	texture0 "button_active.png"
+	colAmbient {255 255 255}
+}
+
+CIwMaterial
+{
+	name "button_inactive"
+	texture0 "button_inactive.png"
+	colAmbient {255 255 255}
+}

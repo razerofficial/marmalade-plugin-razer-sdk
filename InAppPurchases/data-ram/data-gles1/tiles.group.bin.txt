@@ -1,0 +1,19 @@
+ResGroupResources:
+	CIwTexture (0x3521f539)
+		"button_active" (0xf202d71c)
+		Size: 65572
+	CIwTexture (0x3521f539)
+		"button_inactive" (0x224c253)
+		Size: 65572
+	ResList 'CIwTexture' pos:36 size:131154
+
+	CIwMaterial (0x2544f997)
+		"button_active" (0xf202d71c)
+		Size: 17
+	CIwMaterial (0x2544f997)
+		"button_inactive" (0x224c253)
+		Size: 17
+	ResList 'CIwMaterial' pos:131190 size:44
+
+ResGroupResources: Wrote 131202 bytes to CIwResGroup "tiles"
+

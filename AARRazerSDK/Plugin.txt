@@ -1,0 +1,173 @@
+Compiled from "Plugin.java"
+public class com.razerzone.store.sdk.engine.marmalade.Plugin {
+  public com.razerzone.store.sdk.engine.marmalade.Plugin();
+    Signature: ()V
+
+  public static android.app.Activity getActivity();
+    Signature: ()Landroid/app/Activity;
+
+  public static void setActivity(android.app.Activity);
+    Signature: (Landroid/app/Activity;)V
+
+  public static android.os.Bundle getSavedInstanceState();
+    Signature: ()Landroid/os/Bundle;
+
+  public static void setSavedInstanceState(android.os.Bundle);
+    Signature: (Landroid/os/Bundle;)V
+
+  public static com.razerzone.store.sdk.engine.marmalade.StoreFacadeWrapper getStoreFacadeWrapper();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/StoreFacadeWrapper;
+
+  public static void setStoreFacadeWrapper(com.razerzone.store.sdk.engine.marmalade.StoreFacadeWrapper);
+    Signature: (Lcom/razerzone/store/sdk/engine/marmalade/StoreFacadeWrapper;)V
+
+  public static com.razerzone.store.sdk.content.GameModManager getGameModManager();
+    Signature: ()Lcom/razerzone/store/sdk/content/GameModManager;
+
+  public static void setGameModManager(com.razerzone.store.sdk.content.GameModManager);
+    Signature: (Lcom/razerzone/store/sdk/content/GameModManager;)V
+
+  public static java.util.List<com.razerzone.store.sdk.content.GameMod> getGameModManagerInstalledResults();
+    Signature: ()Ljava/util/List;
+
+  public static void setGameModManagerInstalledResults(java.util.List<com.razerzone.store.sdk.content.GameMod>);
+    Signature: (Ljava/util/List;)V
+
+  public static java.util.List<com.razerzone.store.sdk.content.GameMod> getGameModManagerPublishedResults();
+    Signature: ()Ljava/util/List;
+
+  public static void setGameModManagerPublishedResults(java.util.List<com.razerzone.store.sdk.content.GameMod>);
+    Signature: (Ljava/util/List;)V
+
+  public static java.util.List<com.razerzone.store.sdk.content.GameMod> getOuyaContentInstalledResults();
+    Signature: ()Ljava/util/List;
+
+  public static void setOuyaContentInstalledResults(java.util.List<com.razerzone.store.sdk.content.GameMod>);
+    Signature: (Ljava/util/List;)V
+
+  public static java.util.List<com.razerzone.store.sdk.content.GameMod> getOuyaContentPublishedResults();
+    Signature: ()Ljava/util/List;
+
+  public static void setOuyaContentPublishedResults(java.util.List<com.razerzone.store.sdk.content.GameMod>);
+    Signature: (Ljava/util/List;)V
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksInitPlugin getCallbacksInitPlugin();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksInitPlugin;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksRequestGamerInfo getCallbacksRequestGamerInfo();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksRequestGamerInfo;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksRequestProducts getCallbacksRequestProducts();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksRequestProducts;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksRequestPurchase getCallbacksRequestPurchase();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksRequestPurchase;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksRequestReceipts getCallbacksRequestReceipts();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksRequestReceipts;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksShutdown getCallbacksShutdown();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksShutdown;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksContentInit getCallbacksContentInit();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksContentInit;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksContentSearchInstalled getCallbacksContentSearchInstalled();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksContentSearchInstalled;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksContentSearchPublished getCallbacksContentSearchPublished();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksContentSearchPublished;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksContentSave getCallbacksContentSave();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksContentSave;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksContentPublish getCallbacksContentPublish();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksContentPublish;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksContentUnpublish getCallbacksContentUnpublish();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksContentUnpublish;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksContentDelete getCallbacksContentDelete();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksContentDelete;
+
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksContentDownload getCallbacksContentDownload();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksContentDownload;
+
+  public static void initPlugin(java.lang.String);
+    Signature: (Ljava/lang/String;)V
+
+  public static boolean processOnActivityResult(int, int, android.content.Intent);
+    Signature: (IILandroid/content/Intent;)Z
+
+  public static void requestGamerInfo();
+    Signature: ()V
+
+  public static void requestProducts(java.lang.String[]);
+    Signature: ([Ljava/lang/String;)V
+
+  public static void requestPurchase(java.lang.String, java.lang.String);
+    Signature: (Ljava/lang/String;Ljava/lang/String;)V
+
+  public static void requestReceipts();
+    Signature: ()V
+
+  public static void updateSafeArea(float);
+    Signature: (F)V
+
+  public static void shutdown();
+    Signature: ()V
+
+  public static void saveGameaMod(com.razerzone.store.sdk.content.GameMod$Editor, com.razerzone.store.sdk.content.GameMod);
+    Signature: (Lcom/razerzone/store/sdk/content/GameMod$Editor;Lcom/razerzone/store/sdk/content/GameMod;)V
+
+  public static void getOuyaContentInstalled();
+    Signature: ()V
+
+  public static com.razerzone.store.sdk.content.GameMod[] getOuyaContentInstalledResultsArray();
+    Signature: ()[Lcom/razerzone/store/sdk/content/GameMod;
+
+  public static void getOuyaContentPublished(java.lang.String);
+    Signature: (Ljava/lang/String;)V
+
+  public static com.razerzone.store.sdk.content.GameMod[] getOuyaContentPublishedResultsArray();
+    Signature: ()[Lcom/razerzone/store/sdk/content/GameMod;
+
+  public static void contentDelete(com.razerzone.store.sdk.content.GameMod);
+    Signature: (Lcom/razerzone/store/sdk/content/GameMod;)V
+
+  public static void contentPublish(com.razerzone.store.sdk.content.GameMod);
+    Signature: (Lcom/razerzone/store/sdk/content/GameMod;)V
+
+  public static void contentUnpublish(com.razerzone.store.sdk.content.GameMod);
+    Signature: (Lcom/razerzone/store/sdk/content/GameMod;)V
+
+  public static void contentDownload(com.razerzone.store.sdk.content.GameMod);
+    Signature: (Lcom/razerzone/store/sdk/content/GameMod;)V
+
+  public static float getFloat(java.lang.Float);
+    Signature: (Ljava/lang/Float;)F
+
+  public static android.graphics.Bitmap[] getBitmapArray(java.util.List<android.graphics.Bitmap>);
+    Signature: (Ljava/util/List;)[Landroid/graphics/Bitmap;
+
+  public static com.razerzone.store.sdk.content.GameModScreenshot[] getOuyaModScreenshotArray(java.util.List<com.razerzone.store.sdk.content.GameModScreenshot>);
+    Signature: (Ljava/util/List;)[Lcom/razerzone/store/sdk/content/GameModScreenshot;
+
+  public static java.lang.String[] getStringArray(java.util.List<java.lang.String>);
+    Signature: (Ljava/util/List;)[Ljava/lang/String;
+
+  public static void quit();
+    Signature: ()V
+
+  static int access$000();
+    Signature: ()I
+
+  static int access$100();
+    Signature: ()I
+
+  static java.lang.String access$200();
+    Signature: ()Ljava/lang/String;
+
+  static {};
+    Signature: ()V
+}
