@@ -78,8 +78,6 @@ public:
 	void DoRequestReceipts();
 	void DoShutdown();
 
-	void HandleInput();
-
 	void SetUsername(const std::string& username);
 
 	void SetGamerUUID(const std::string& uuid);

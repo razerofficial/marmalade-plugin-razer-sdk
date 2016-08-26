@@ -30,7 +30,7 @@ using namespace std;
 
 string g_version = "Mamalade Version: 077";
 
-void render()
+void Render()
 {
 	IwGxClear();
 
@@ -82,9 +82,7 @@ int main()
 	{
 		//IwTrace(DEFAULT, ("Main loop while (!s3eDeviceCheckQuitRequest()"));
 
-		render();
-
-		Application::s_ui.HandleInput();
+		Render();
 
 		// keep polling for input, don't kill the CPU
 		s3eDeviceYield(0);
