@@ -503,7 +503,12 @@ public class StoreFacadeWrapper
 		if (null == mStoreFacade) {
 			Log.e(TAG, "shutdown: StoreFacade is null!");
 		} else {
-			mStoreFacade.shutdown(mShutdownListener);
+			try {
+				mStoreFacade.shutdown(mShutdownListener);
+			} catch (Exception e) {
+				e.printStackTrace();
+                mShutdownListener.onFailure(0, "Shutdown threw an exception!", null);
+			}
 		}
 	}
 

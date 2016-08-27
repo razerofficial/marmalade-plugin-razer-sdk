@@ -20817,4 +20817,4 @@ LOAD C:/NVPACK/android-ndk-r10e/platforms/android-14/arch-arm/usr/lib/crtend_so.
  *(.gnu_debuglink)
  *(.gnu.lto_*)
  *(.mdebug.*)
-OUTPUT(G:\Private\marmalade-plugin-razer-sdk\MarmaladeRazerSDK\lib\android\armv7\libRazerSDK_d.so elf32-littlearm)
+OUTPUT(G:\Public\marmalade-plugin-razer-sdk\MarmaladeRazerSDK\lib\android\armv7\libRazerSDK_d.so elf32-littlearm)
