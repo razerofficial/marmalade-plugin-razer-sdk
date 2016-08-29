@@ -155,7 +155,6 @@ subprojects
 
 Your application needs to include the Marmalade RazerSDK header to interface with the extension.
 
-c++
 ```
 #include "RazerSDK.h"
 ```
@@ -164,7 +163,6 @@ c++
 
 Before calling the Marmalade RazerSDK extension, an application [main](https://github.com/razerofficial/marmalade-plugin-razer-sdk/blob/master/InAppPurchases/Main.cpp) should check if the extension is available.
 
-c++
 ```
 	if (!RazerSDKAvailable())
 	{
@@ -175,7 +173,6 @@ c++
 
 If the Marmalade RazerSDK extension is available, [initialize](https://github.com/razerofficial/marmalade-plugin-razer-sdk/blob/master/InAppPurchases/Application.cpp) with the `Secret API Key` found in the [developer portal](http://devs.ouya.tv).
 
-c++
 ```
 void Application::InitPlugin()
 {
@@ -209,7 +206,6 @@ See the [RazerSDK Documentation](https://github.com/razerofficial/razer-sdk-docs
 
 The `Plugin_initPlugin` function takes a `const char*` parameter for the `SecretApiKey`. The second parameter takes a pointer to a `s3eCallback` success event. The third parameter takes a pointer to a `s3eCallback` failure event. The success callback is invoked if the `RazerSDK` is initialized successfully. The failure callback is invoked if the `RazerSDK` fails to initialize. The success event is invoked after IAP has been initialized.
 
-c++
 ```
 	std::string secretApiKey = "eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4";
 	secretApiKey += "NzhlNWY1ZDAiLCJkZXZlbG9wZXJfcHVibGljX2tleSI6Ik1JR2ZNQTBHQ1Nx";
@@ -231,7 +227,6 @@ c++
 
 The `RazerSDK::GamerInfo` object provides the `Username` and `Uuid` fields.
 
-c++
 ```
 	class GamerInfo
 	{
@@ -249,7 +244,6 @@ The cancel event indicates the user canceled the request.
 
 Invoking `Plugin_requestGamerInfo` takes the success, failure, and cancel event callbacks.
 
-c++
 ```
 	Plugin_requestGamerInfo(
 		Application::s_ui.m_callbacksRequestGamerInfo->GetSuccessEvent(),
@@ -261,21 +255,18 @@ When the Marmalade RazerSDK has completed RequestGamerInfo, it invokes the Appli
 
 The success callback passes the gamer info, which is passed to the UI.
 
-c++
 ```
 	void ApplicationCallbacksRequestGamerInfo::OnSuccess(const GamerInfo& gamerInfo)
 ```
 
 The failure callback passes an error code and string message about the failure, which is passed to the UI.
 
-c++
 ```
 	void ApplicationCallbacksRequestGamerInfo::OnFailure(int errorCode, const string& errorMessage)
 ```
 
 The error callback indicates the user aborted the operation and the event name is passed to the UI.
 
-c++
 ```
 	void ApplicationCallbacksRequestGamerInfo::OnCancel()
 ```
@@ -286,7 +277,6 @@ c++
 
 The `RazerSDK::Product` object provides the `Identifier`, `Name`, `Description`, `Local Price`, `Product Type` and several other fields.
 
-c++
 ```
 	class Product
 	{
@@ -306,7 +296,6 @@ c++
 
 Pass an array of JSON to the Marmalade RazerSDK Extension to get the details of the product list and invoke the callbacks upon completion.
 
-c++
 ```
 	// prepare json
 	string productsJson = "[";
@@ -338,21 +327,18 @@ c++
 
 The success callback passes the retrieved product list, which is passed to the UI.
 
-c++
 ```
 void ApplicationCallbacksRequestProducts::OnSuccess(const vector<Product>& products)
 ```
 
 The failure callback passes an error code and string message about the failure, which is passed to the UI.
 
-c++
 ```
 void ApplicationCallbacksRequestProducts::OnFailure(int errorCode, const string& errorMessage)
 ```
 
 The error callback indicates the user aborted the operation and the event name is passed to the UI.
 
-c++
 ```
 void ApplicationCallbacksRequestProducts::OnCancel()
 ```
@@ -363,7 +349,6 @@ void ApplicationCallbacksRequestProducts::OnCancel()
 
 The `RazerSDK::PurchaseResult` object provides the `Identifier` that was just purchased by the logged in user.
 
-c++
 ```
 	class PurchaseResult
 	{
@@ -374,7 +359,6 @@ c++
 
 Invoke the Marmalade RazerSDK Extension to request purchase for the identifier and invoke the callbacks upon completion.
 
-c++
 ```
 	std::string identifier = "long_sword";
 
@@ -397,21 +381,18 @@ c++
 
 The success callback passes the purchased product details, which is passed to the UI.
 
-c++
 ```
 void ApplicationCallbacksRequestPurchase::OnSuccess(const ApplicationProduct& product)
 ```
 
 The failure callback passes an error code and string message about the failure, which is passed to the UI.
 
-c++
 ```
 void ApplicationCallbacksRequestPurchase::OnFailure(int errorCode, const std::string& errorMessage)
 ```
 
 The error callback indicates the user aborted the operation and the event name is passed to the UI.
 
-c++
 ```
 void ApplicationCallbacksRequestPurchase::OnCancel()
 ```
@@ -422,7 +403,6 @@ void ApplicationCallbacksRequestPurchase::OnCancel()
 
 The `RazerSDK::Receipt` object provides the `Identifier`, `LocalPrice`, and several other fields.
 
-c++
 ```
 	class Receipt
 	{
@@ -440,7 +420,6 @@ c++
 
 Invoke the Marmalade RazerSDK Extension to request purchase for the identifier and invoke the callbacks upon completion.
 
-c++
 ```
 	Plugin_requestReceipts(
 		Application::s_ui.m_callbacksRequestReceipts->GetSuccessEvent(),
@@ -450,21 +429,18 @@ c++
 
 The success callback passes the purchased product details, which is passed to the UI.
 
-c++
 ```
 void ApplicationCallbacksRequestReceipts::OnSuccess(const vector<Receipt>& receipts)
 ```
 
 The failure callback passes an error code and string message about the failure, which is passed to the UI.
 
-c++
 ```
 void ApplicationCallbacksRequestReceipts::OnFailure(int errorCode, const string& errorMessage)
 ```
 
 The error callback indicates the user aborted the operation and the event name is passed to the UI.
 
-c++
 ```
 void ApplicationCallbacksRequestReceipts::OnCancel()
 ```
@@ -473,7 +449,6 @@ void ApplicationCallbacksRequestReceipts::OnCancel()
 
 This method should only be invoked after the `RazerSDK` has successfully initialized. The `RazerSDK` must be shutdown before exiting the application. 
 
-c++
 ```
 	Plugin_shutdown(
 		Application::s_ui.m_callbacksShutdown->GetSuccessEvent(),
@@ -497,7 +472,6 @@ void ApplicationCallbacksShutdown::OnFailure(int errorCode, const std::string& e
 
 This method should only be invoked after the `RazerSDK` has been shutdown if the `RazerSDK` had successfully initialized. The `s3eDeviceRequestQuit` function will signal the main loop to exit the application.
 
-c++
 ```
 	s3eDeviceRequestQuit();
 ```
