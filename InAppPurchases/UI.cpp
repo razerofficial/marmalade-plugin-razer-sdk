@@ -45,6 +45,7 @@
 #include "IwGxFont.h"
 
 using namespace com_razerzone_store_sdk_Controller;
+using namespace org_json_JSONArray;
 using namespace RazerSDK;
 using namespace std;
 
@@ -403,26 +404,17 @@ void UI::DoRequestProducts()
 	SetMessage("Requesting products...");
 
 	// prepare json
-	string productsJson = "[";
+	int jsonArray = Plugin_JSONArray_Construct();
 
 	int index = 0;
 	for (vector<string>::iterator iter = m_productIds.begin(); iter != m_productIds.end(); ++iter)
 	{
-		string productId = *iter;
-		if (index == 0)
-		{
-			productsJson.append("\"");
-		}
-		else
-		{
-			productsJson.append(", \"");
-		}
-		productsJson.append(productId);
-		productsJson.append("\"");
+		string identifier = *iter;
+		Plugin_JSONArray_PutString(jsonArray, index, identifier.c_str());
 		++index;
 	}
 
-	productsJson.append("]");
+	string productsJson = Plugin_JSONArray_ToString(jsonArray);
 
 #if ENABLE_VERBOSE_LOGGING
 	IwTrace(DEFAULT, (productsJson.c_str()));

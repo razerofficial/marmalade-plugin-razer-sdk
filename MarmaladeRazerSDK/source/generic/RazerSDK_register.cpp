@@ -109,6 +109,11 @@ static void Plugin_JSONArray_Put_wrap(int jsonArray, int index, int jsonObject)
     IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK func on main thread: Plugin_JSONArray_Put"));
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)Plugin_JSONArray_Put, 3, jsonArray, index, jsonObject);
 }
+static void Plugin_JSONArray_PutString_wrap(int jsonArray, int index, const char* item)
+{
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK func on main thread: Plugin_JSONArray_PutString"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)Plugin_JSONArray_PutString, 3, jsonArray, index, item);
+}
 static const char* Plugin_JSONArray_ToString_wrap(int jsonArray)
 {
     IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK func on main thread: Plugin_JSONArray_ToString"));
@@ -148,6 +153,8 @@ static const char* Plugin_JSONArray_ToString_wrap(int jsonArray)
 
 #define Plugin_JSONArray_Put Plugin_JSONArray_Put_wrap
 
+#define Plugin_JSONArray_PutString Plugin_JSONArray_PutString_wrap
+
 #define Plugin_JSONArray_ToString Plugin_JSONArray_ToString_wrap
 
 
@@ -156,7 +163,7 @@ static const char* Plugin_JSONArray_ToString_wrap(int jsonArray)
 void RazerSDKRegisterExt()
 {
     /* fill in the function pointer struct for this extension */
-    void* funcPtrs[18];
+    void* funcPtrs[19];
     funcPtrs[0] = (void*)Plugin_getAxis;
     funcPtrs[1] = (void*)Plugin_isPressed;
     funcPtrs[2] = (void*)Plugin_isPressedDown;
@@ -174,12 +181,13 @@ void RazerSDKRegisterExt()
     funcPtrs[14] = (void*)Plugin_JSONObject_ToString;
     funcPtrs[15] = (void*)Plugin_JSONArray_Construct;
     funcPtrs[16] = (void*)Plugin_JSONArray_Put;
-    funcPtrs[17] = (void*)Plugin_JSONArray_ToString;
+    funcPtrs[17] = (void*)Plugin_JSONArray_PutString;
+    funcPtrs[18] = (void*)Plugin_JSONArray_ToString;
 
     /*
      * Flags that specify the extension's use of locking and stackswitching
      */
-    int flags[18] = { 0 };
+    int flags[19] = { 0 };
 
     /*
      * Register the extension

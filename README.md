@@ -298,26 +298,17 @@ Pass an array of JSON to the Marmalade RazerSDK Extension to get the details of 
 
 ```
 	// prepare json
-	string productsJson = "[";
+	int jsonArray = Plugin_JSONArray_Construct();
 
 	int index = 0;
 	for (vector<string>::iterator iter = m_productIds.begin(); iter != m_productIds.end(); ++iter)
 	{
-		string productId = *iter;
-		if (index == 0)
-		{
-			productsJson.append("\"");
-		}
-		else
-		{
-			productsJson.append(", \"");
-		}
-		productsJson.append(productId);
-		productsJson.append("\"");
+		string identifier = *iter;
+		Plugin_JSONArray_PutString(jsonArray, index, identifier.c_str());
 		++index;
 	}
 
-	productsJson.append("]");
+	string productsJson = Plugin_JSONArray_ToString(jsonArray);
 
 	Plugin_requestProducts(productsJson.c_str(),
 		Application::s_ui.m_callbacksRequestProducts->GetSuccessEvent(),

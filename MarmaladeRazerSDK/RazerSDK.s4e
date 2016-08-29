@@ -50,4 +50,5 @@ const char* Plugin_JSONObject_ToString(int jsonObject) false run_on_os_thread
 
 int Plugin_JSONArray_Construct() false run_on_os_thread
 void Plugin_JSONArray_Put(int jsonArray, int index, int jsonObject) false run_on_os_thread
+void Plugin_JSONArray_PutString(int jsonArray, int index, const char* item) false run_on_os_thread
 const char* Plugin_JSONArray_ToString(int jsonArray) false run_on_os_thread

@@ -86,6 +86,8 @@ int Plugin_JSONArray_Construct();
 
 void Plugin_JSONArray_Put(int jsonArray, int index, int jsonObject);
 
+void Plugin_JSONArray_PutString(int jsonArray, int index, const char* item);
+
 const char* Plugin_JSONArray_ToString(int jsonArray);
 
 // \cond HIDDEN_DEFINES

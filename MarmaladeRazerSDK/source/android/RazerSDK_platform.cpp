@@ -58,21 +58,22 @@ using namespace com_razerzone_store_sdk_Controller;
 using namespace org_json_JSONObject;
 using namespace org_json_JSONArray;
 using namespace RazerSDK;
+using namespace std;
 
 // use string to send char* to invoker
-static std::string g_tempPluginString;
+static string g_tempPluginString;
 
 #define MAX_CONTROLLERS 4
 
 //axis states
-static std::vector< std::map<int, float> > g_axis;
+static vector< map<int, float> > g_axis;
 
 //button states
-static std::vector< std::map<int, bool> > g_button;
-static std::vector< std::map<int, bool> > g_buttonDown;
-static std::vector< std::map<int, bool> > g_buttonUp;
-static std::vector< std::map<int, bool> > g_lastButtonDown;
-static std::vector< std::map<int, bool> > g_lastButtonUp;
+static vector< map<int, bool> > g_button;
+static vector< map<int, bool> > g_buttonDown;
+static vector< map<int, bool> > g_buttonUp;
+static vector< map<int, bool> > g_lastButtonDown;
+static vector< map<int, bool> > g_lastButtonUp;
 
 static CallbacksInitPlugin g_callbacksInitPlugin;
 static CallbacksRequestGamerInfo g_callbacksRequestGamerInfo;
@@ -150,12 +151,12 @@ s3eResult RazerSDKInit_platform()
 
 	for (int index = 0; index < MAX_CONTROLLERS; ++index)
 	{
-		g_axis.push_back(std::map<int, float>());
-		g_button.push_back(std::map<int, bool>());
-		g_buttonDown.push_back(std::map<int, bool>());
-		g_buttonUp.push_back(std::map<int, bool>());
-		g_lastButtonDown.push_back(std::map<int, bool>());
-		g_lastButtonUp.push_back(std::map<int, bool>());
+		g_axis.push_back(map<int, float>());
+		g_button.push_back(map<int, bool>());
+		g_buttonDown.push_back(map<int, bool>());
+		g_buttonUp.push_back(map<int, bool>());
+		g_lastButtonDown.push_back(map<int, bool>());
+		g_lastButtonUp.push_back(map<int, bool>());
 	}
 
 	__android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Find InputView...");
@@ -234,7 +235,7 @@ int Plugin_getAxis(int deviceId, int axis)
 		deviceId = 0;
 	}
 
-	std::map<int, float>::const_iterator search = g_axis[deviceId].find(axis);
+	map<int, float>::const_iterator search = g_axis[deviceId].find(axis);
 	float val = 0.0f;
 	if (search != g_axis[deviceId].end())
 	{
@@ -253,7 +254,7 @@ bool Plugin_isPressed(int deviceId, int keyCode)
 		deviceId = 0;
 	}
 
-	std::map<int, bool>::const_iterator search = g_button[deviceId].find(keyCode);
+	map<int, bool>::const_iterator search = g_button[deviceId].find(keyCode);
 	bool val = false;
 	if (search != g_button[deviceId].end())
 	{
@@ -272,7 +273,7 @@ bool Plugin_isPressedDown(int deviceId, int keyCode)
 		deviceId = 0;
 	}
 
-	std::map<int, bool>::const_iterator search = g_lastButtonDown[deviceId].find(keyCode);
+	map<int, bool>::const_iterator search = g_lastButtonDown[deviceId].find(keyCode);
 	if (search != g_lastButtonDown[deviceId].end())
 	{
 		return search->second;
@@ -289,7 +290,7 @@ bool Plugin_isPressedUp(int deviceId, int keyCode)
 		deviceId = 0;
 	}
 
-	std::map<int, bool>::const_iterator search = g_lastButtonUp[deviceId].find(keyCode);
+	map<int, bool>::const_iterator search = g_lastButtonUp[deviceId].find(keyCode);
 	if (search != g_lastButtonUp[deviceId].end())
 	{
 		return search->second;
@@ -304,12 +305,12 @@ void Plugin_clearButtonStates()
 	{
 		g_lastButtonDown[deviceId].clear();
 		g_lastButtonUp[deviceId].clear();
-		for (std::map<int, bool>::iterator it = g_buttonDown[deviceId].begin(); it != g_buttonDown[deviceId].end(); ++it)
+		for (map<int, bool>::iterator it = g_buttonDown[deviceId].begin(); it != g_buttonDown[deviceId].end(); ++it)
 		{
 			int keyCode = it->first;
 			g_lastButtonDown[deviceId][keyCode] = g_buttonDown[deviceId][keyCode];
 		}
-		for (std::map<int, bool>::iterator it = g_buttonUp[deviceId].begin(); it != g_buttonUp[deviceId].end(); ++it)
+		for (map<int, bool>::iterator it = g_buttonUp[deviceId].begin(); it != g_buttonUp[deviceId].end(); ++it)
 		{
 			int keyCode = it->first;
 			g_lastButtonUp[deviceId][keyCode] = g_buttonUp[deviceId][keyCode];
@@ -356,18 +357,18 @@ void Plugin_requestProducts(const char* productsJson, s3eCallback onSuccess, s3e
 {
 	IwTrace(RazerSDK, ("RazerSDK_platform: Plugin_requestProducts"));
 
-	std::string msg = "Plugin_requestProducts: productsJson=";
+	string msg = "Plugin_requestProducts: productsJson=";
 	msg.append(productsJson);
 	IwTrace(RazerSDK, (msg.c_str()));
 
 	//convert JSON to product id array
 	JSONArray jsonArray = JSONArray(productsJson);
 
-	std::vector<std::string> productIds;
+	vector<string> productIds;
 
 	for (int i = 0; i < jsonArray.length(); i++)
 	{
-		std::string productId = jsonArray.getString(i);
+		string productId = jsonArray.getString(i);
 		productIds.push_back(productId);
 	}
 
@@ -380,7 +381,7 @@ void Plugin_requestPurchase(const char* purchasable, const char* productType, s3
 {
 	IwTrace(RazerSDK, ("RazerSDK_platform: Plugin_requestPurchase"));
 
-	std::string msg = "Plugin_requestPurchase: purchasable=";
+	string msg = "Plugin_requestPurchase: purchasable=";
 	msg.append(purchasable);
 	IwTrace(RazerSDK, (msg.c_str()));
 
@@ -408,7 +409,7 @@ void Plugin_shutdown(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback o
 }
 
 static int g_refCountJSONObject = 0;
-static std::map<int, JSONObject*> g_refJSONObject = std::map<int, JSONObject*>();
+static map<int, JSONObject*> g_refJSONObject = map<int, JSONObject*>();
 
 int Plugin_JSONObject_Construct()
 {
@@ -424,7 +425,7 @@ void Plugin_JSONObject_Put(int jsonObject, const char* name, const char* value)
 #if ENABLE_VERBOSE_LOGGING
 	__android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Plugin_JSONObject_Put: jsonObject=%d", jsonObject);
 #endif
-	std::map<int, JSONObject*>::const_iterator search = g_refJSONObject.find(jsonObject);
+	map<int, JSONObject*>::const_iterator search = g_refJSONObject.find(jsonObject);
 	if (search != g_refJSONObject.end())
 	{
 		JSONObject* instance = search->second;
@@ -451,7 +452,7 @@ const char* Plugin_JSONObject_ToString(int jsonObject)
 #if ENABLE_VERBOSE_LOGGING
 	__android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Plugin_JSONObject_ToString: jsonObject=%d", jsonObject);
 #endif
-	std::map<int, JSONObject*>::const_iterator search = g_refJSONObject.find(jsonObject);
+	map<int, JSONObject*>::const_iterator search = g_refJSONObject.find(jsonObject);
 	if (search != g_refJSONObject.end())
 	{
 		JSONObject* instance = search->second;
@@ -480,7 +481,7 @@ const char* Plugin_JSONObject_ToString(int jsonObject)
 }
 
 static int g_refCountJSONArray = 0;
-static std::map<int, JSONArray*> g_refJSONArray = std::map<int, JSONArray*>();
+static map<int, JSONArray*> g_refJSONArray = map<int, JSONArray*>();
 
 int Plugin_JSONArray_Construct()
 {
@@ -493,14 +494,14 @@ int Plugin_JSONArray_Construct()
 
 void Plugin_JSONArray_Put(int jsonArray, int index, int jsonObject)
 {
-	std::map<int, JSONArray*>::const_iterator searchJSONArray = g_refJSONArray.find(jsonArray);
+	map<int, JSONArray*>::const_iterator searchJSONArray = g_refJSONArray.find(jsonArray);
 	if (searchJSONArray == g_refJSONArray.end())
 	{
 		__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "Plugin_JSONArray_Put JSONArray reference is invalid");
 		return;
 	}
 
-	std::map<int, JSONObject*>::const_iterator searchJSONObject = g_refJSONObject.find(jsonObject);
+	map<int, JSONObject*>::const_iterator searchJSONObject = g_refJSONObject.find(jsonObject);
 	if (searchJSONObject == g_refJSONObject.end())
 	{
 		__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "Plugin_JSONArray_Put JSONObject reference is invalid");
@@ -524,12 +525,33 @@ void Plugin_JSONArray_Put(int jsonArray, int index, int jsonObject)
 	instanceJSONArray->put(index, instanceJSONObject->GetInstance());
 }
 
+void Plugin_JSONArray_PutString(int jsonArray, int index, const char* item)
+{
+	map<int, JSONArray*>::const_iterator searchJSONArray = g_refJSONArray.find(jsonArray);
+	if (searchJSONArray == g_refJSONArray.end())
+	{
+		__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "Plugin_JSONArray_Put JSONArray reference is invalid");
+		return;
+	} 
+
+	JSONArray* instanceJSONArray = searchJSONArray->second;
+	if (!instanceJSONArray)
+	{
+		__android_log_print(ANDROID_LOG_ERROR, LOG_TAG, "Plugin_JSONArray_Put JSONArray instance is invalid");
+		return;
+	}
+
+	string value = item;
+
+	instanceJSONArray->put(index, value);
+}
+
 const char* Plugin_JSONArray_ToString(int jsonArray)
 {
 #if ENABLE_VERBOSE_LOGGING
 	__android_log_print(ANDROID_LOG_INFO, LOG_TAG, "Plugin_JSONArray_ToString: jsonArray=%d", jsonArray);
 #endif
-	std::map<int, JSONArray*>::const_iterator search = g_refJSONArray.find(jsonArray);
+	map<int, JSONArray*>::const_iterator search = g_refJSONArray.find(jsonArray);
 	if (search != g_refJSONArray.end())
 	{
 		JSONArray* instance = search->second;

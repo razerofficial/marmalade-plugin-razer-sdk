@@ -22,6 +22,7 @@ typedef       void(*Plugin_JSONObject_Put_t)(int jsonObject, const char* name, c
 typedef const char*(*Plugin_JSONObject_ToString_t)(int jsonObject);
 typedef        int(*Plugin_JSONArray_Construct_t)();
 typedef       void(*Plugin_JSONArray_Put_t)(int jsonArray, int index, int jsonObject);
+typedef       void(*Plugin_JSONArray_PutString_t)(int jsonArray, int index, const char* item);
 typedef const char*(*Plugin_JSONArray_ToString_t)(int jsonArray);
 
 /**
@@ -46,5 +47,6 @@ typedef struct RazerSDKFuncs
     Plugin_JSONObject_ToString_t m_Plugin_JSONObject_ToString;
     Plugin_JSONArray_Construct_t m_Plugin_JSONArray_Construct;
     Plugin_JSONArray_Put_t m_Plugin_JSONArray_Put;
+    Plugin_JSONArray_PutString_t m_Plugin_JSONArray_PutString;
     Plugin_JSONArray_ToString_t m_Plugin_JSONArray_ToString;
 } RazerSDKFuncs;

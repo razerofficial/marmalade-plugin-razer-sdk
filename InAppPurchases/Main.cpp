@@ -28,7 +28,7 @@
 
 using namespace std;
 
-string g_version = "Mamalade Version: 077";
+string g_version = "Mamalade Version: 078";
 
 void Render()
 {

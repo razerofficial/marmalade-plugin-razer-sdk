@@ -406,9 +406,29 @@ void Plugin_JSONArray_Put(int jsonArray, int index, int jsonObject)
     return;
 }
 
+void Plugin_JSONArray_PutString(int jsonArray, int index, const char* item)
+{
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[17] func: Plugin_JSONArray_PutString"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_Plugin_JSONArray_PutString);
+#endif
+
+    g_Ext.m_Plugin_JSONArray_PutString(jsonArray, index, item);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_Plugin_JSONArray_PutString);
+#endif
+
+    return;
+}
+
 const char* Plugin_JSONArray_ToString(int jsonArray)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[17] func: Plugin_JSONArray_ToString"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[18] func: Plugin_JSONArray_ToString"));
 
     if (!_extLoad())
         return false;
