@@ -178,7 +178,7 @@ void Application::InitPlugin()
 {
 	Application::s_ui.SetMessage("Initialize RazerSDK Plugin...");
 
-	std::string secretApiKey = "eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4";
+	string secretApiKey = "eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4";
 	secretApiKey += "NzhlNWY1ZDAiLCJkZXZlbG9wZXJfcHVibGljX2tleSI6Ik1JR2ZNQTBHQ1Nx";
 	secretApiKey += "R1NJYjNEUUVCQVFVQUE0R05BRENCaVFLQmdRQ3A2VENMYzg1cHBGdnY5U1RU";
 	secretApiKey += "Q3pYYk9aYVlDczFDNEdrcHNQMEQwaGs4dkoyZ1pqVjJhNUUwMHVTeVBYN1FO";
@@ -194,7 +194,7 @@ void Application::InitPlugin()
 
 ### OnFailure
 
-All `OnFailure` callbacks return an `int errorCode` and `std::string errorMessage` when used by `RazerSDK` function calls.
+All `OnFailure` callbacks return an `int errorCode` and `string errorMessage` when used by `RazerSDK` function calls.
 
 ### OnCancel
 
@@ -207,7 +207,7 @@ See the [RazerSDK Documentation](https://github.com/razerofficial/razer-sdk-docs
 The `Plugin_initPlugin` function takes a `const char*` parameter for the `SecretApiKey`. The second parameter takes a pointer to a `s3eCallback` success event. The third parameter takes a pointer to a `s3eCallback` failure event. The success callback is invoked if the `RazerSDK` is initialized successfully. The failure callback is invoked if the `RazerSDK` fails to initialize. The success event is invoked after IAP has been initialized.
 
 ```
-	std::string secretApiKey = "eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4";
+	string secretApiKey = "eyJkZXZlbG9wZXJfaWQiOiIzMTBhOGY1MS00ZDZlLTRhZTUtYmRhMC1iOTM4";
 	secretApiKey += "NzhlNWY1ZDAiLCJkZXZlbG9wZXJfcHVibGljX2tleSI6Ik1JR2ZNQTBHQ1Nx";
 	secretApiKey += "R1NJYjNEUUVCQVFVQUE0R05BRENCaVFLQmdRQ3A2VENMYzg1cHBGdnY5U1RU";
 	secretApiKey += "Q3pYYk9aYVlDczFDNEdrcHNQMEQwaGs4dkoyZ1pqVjJhNUUwMHVTeVBYN1FO";
@@ -231,8 +231,8 @@ The `RazerSDK::GamerInfo` object provides the `Username` and `Uuid` fields.
 	class GamerInfo
 	{
 	public:
-		std::string Username;
-		std::string Uuid;
+		string Username;
+		string Uuid;
 	};
 ```
 
@@ -281,16 +281,16 @@ The `RazerSDK::Product` object provides the `Identifier`, `Name`, `Description`,
 	class Product
 	{
 	public:
-		std::string CurrencyCode;
-		std::string Description;
-		std::string DeveloperName;
-		std::string Identifier;
+		string CurrencyCode;
+		string Description;
+		string DeveloperName;
+		string Identifier;
 		float LocalPrice;
-		std::string Name;
+		string Name;
 		float OriginalPrice;
 		float PercentOff;
 		int PriceInCents;
-		std::string ProductType;
+		string ProductType;
 	};
 ```
 
@@ -345,7 +345,7 @@ void ApplicationCallbacksRequestProducts::OnCancel()
 
 ### RequestPurchase
 
-`RazerSDK::requestPurchase` initiates a purchase for the logged in user given the `identifier` and `product type`. The `product type` can be `ENTITLEMENT` or `CONSUMABLE`. This method should only be invoked after the `RazerSDK` has successfully initialized. Entitlements and consumables need to correspond to the items that were created in the [developer portal](https://devs.ouya.tv). 
+`Plugin_requestPurchase` initiates a purchase for the logged in user given the `identifier` and `product type`. The `product type` can be `ENTITLEMENT` or `CONSUMABLE`. This method should only be invoked after the `RazerSDK` has successfully initialized. Entitlements and consumables need to correspond to the items that were created in the [developer portal](https://devs.ouya.tv). 
 
 The `RazerSDK::PurchaseResult` object provides the `Identifier` that was just purchased by the logged in user.
 
@@ -353,17 +353,17 @@ The `RazerSDK::PurchaseResult` object provides the `Identifier` that was just pu
 	class PurchaseResult
 	{
 	public:
-		std::string Identifier;
+		string Identifier;
 	};
 ```
 
 Invoke the Marmalade RazerSDK Extension to request purchase for the identifier and invoke the callbacks upon completion.
 
 ```
-	std::string identifier = "long_sword";
+	string identifier = "long_sword";
 
 	// purchase an entitlement
-	std::string productType = "ENTITLEMENT";
+	string productType = "ENTITLEMENT";
 	Plugin_requestPurchase(identifier.c_str(),
 		productType.c_str(),
 		Application::s_ui.m_callbacksRequestPurchase->GetSuccessEvent(),
@@ -371,7 +371,7 @@ Invoke the Marmalade RazerSDK Extension to request purchase for the identifier a
 		Application::s_ui.m_callbacksRequestPurchase->GetCancelEvent());
 
 	// purchase a consumable
-	std::string productType = "CONSUMABLE";
+	string productType = "CONSUMABLE";
 	Plugin_requestPurchase(identifier.c_str(),
 		productType.c_str(),
 		Application::s_ui.m_callbacksRequestPurchase->GetSuccessEvent(),
@@ -388,7 +388,7 @@ void ApplicationCallbacksRequestPurchase::OnSuccess(const ApplicationProduct& pr
 The failure callback passes an error code and string message about the failure, which is passed to the UI.
 
 ```
-void ApplicationCallbacksRequestPurchase::OnFailure(int errorCode, const std::string& errorMessage)
+void ApplicationCallbacksRequestPurchase::OnFailure(int errorCode, const string& errorMessage)
 ```
 
 The error callback indicates the user aborted the operation and the event name is passed to the UI.
@@ -407,14 +407,14 @@ The `RazerSDK::Receipt` object provides the `Identifier`, `LocalPrice`, and seve
 	class Receipt
 	{
 	public:
-		std::string Currency;
-		std::string GamerUuid;
-		std::string GeneratedDate;
-		std::string Identifier;
+		string Currency;
+		string GamerUuid;
+		string GeneratedDate;
+		string Identifier;
 		float LocalPrice;
 		int PriceInCents;
-		std::string PurchaseDate;
-		std::string Uuid;
+		string PurchaseDate;
+		string Uuid;
 	};
 ```
 
@@ -465,7 +465,7 @@ void ApplicationCallbacksShutdown::OnSuccess()
 The failure callback passes an error code and string message about the failure, which is passed to the UI.
 
 ```
-void ApplicationCallbacksShutdown::OnFailure(int errorCode, const std::string& errorMessage)
+void ApplicationCallbacksShutdown::OnFailure(int errorCode, const string& errorMessage)
 ```
 
 ### Quit

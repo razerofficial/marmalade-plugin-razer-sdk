@@ -22,6 +22,8 @@
 
 #include <stdio.h>
 
+using namespace std;
+
 void ShutdownOnSuccess(s3eShutdownSuccessEvent* event)
 {
 #if ENABLE_VERBOSE_LOGGING
@@ -93,7 +95,7 @@ void ApplicationCallbacksShutdown::OnSuccess()
 	Application::s_ui.Exit();
 }
 
-void ApplicationCallbacksShutdown::OnFailure(int errorCode, const std::string& errorMessage)
+void ApplicationCallbacksShutdown::OnFailure(int errorCode, const string& errorMessage)
 {
 #if ENABLE_VERBOSE_LOGGING
 	char buffer[256];
@@ -101,7 +103,7 @@ void ApplicationCallbacksShutdown::OnFailure(int errorCode, const std::string& e
 	IwTrace(DEFAULT, (buffer));
 #endif
 	
-	std::string msg = "ApplicationCallbacksShutdown::OnFailure";
+	string msg = "ApplicationCallbacksShutdown::OnFailure";
 	msg.append(" errorMessage=");
 	msg.append(errorMessage);
 	Application::s_ui.SetMessage(msg);
