@@ -23,6 +23,9 @@
 
 #include <stdio.h>
 
+using namespace RazerSDK;
+using namespace std;
+
 void RequestReceiptsOnSuccess(s3eRequestReceiptsSuccessEvent* event)
 {
 #if ENABLE_VERBOSE_LOGGING
@@ -30,11 +33,11 @@ void RequestReceiptsOnSuccess(s3eRequestReceiptsSuccessEvent* event)
 #endif
 	if (event)
 	{
-		std::vector<RazerSDK::Receipt> receipts;
+		vector<Receipt> receipts;
 		for (int index = 0; index < event->m_receiptsLength; ++index)
 		{
-			RazerSDK::ExtensionReceipt eReceipt = event->m_receipts[index];
-			RazerSDK::Receipt receipt;
+			ExtensionReceipt eReceipt = event->m_receipts[index];
+			Receipt receipt;
 			receipt.Init();
 			receipt.Copy(eReceipt);
 			receipts.push_back(receipt);
@@ -96,7 +99,7 @@ s3eCallback ApplicationCallbacksRequestReceipts::GetCancelEvent()
 	return (s3eCallback)RequestReceiptsOnCancel;
 }
 
-void ApplicationCallbacksRequestReceipts::OnSuccess(const std::vector<RazerSDK::Receipt>& receipts)
+void ApplicationCallbacksRequestReceipts::OnSuccess(const vector<Receipt>& receipts)
 {
 #if ENABLE_VERBOSE_LOGGING
 	IwTrace(DEFAULT, ("OnSuccess"));
@@ -112,7 +115,7 @@ void ApplicationCallbacksRequestReceipts::OnSuccess(const std::vector<RazerSDK::
 	}
 }
 
-void ApplicationCallbacksRequestReceipts::OnFailure(int errorCode, const std::string& errorMessage)
+void ApplicationCallbacksRequestReceipts::OnFailure(int errorCode, const string& errorMessage)
 {
 #if ENABLE_VERBOSE_LOGGING
 	char buffer[256];
@@ -120,7 +123,7 @@ void ApplicationCallbacksRequestReceipts::OnFailure(int errorCode, const std::st
 	IwTrace(DEFAULT, (buffer));
 #endif
 	
-	std::string msg = "ApplicationCallbacksRequestReceipts::OnFailure";
+	string msg = "ApplicationCallbacksRequestReceipts::OnFailure";
 	msg.append(" errorMessage=");
 	msg.append(errorMessage);
 	Application::s_ui.SetMessage(msg);

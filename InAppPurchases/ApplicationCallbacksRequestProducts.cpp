@@ -24,6 +24,9 @@
 
 #include <stdio.h>
 
+using namespace RazerSDK;
+using namespace std;
+
 void RequestProductsOnSuccess(s3eRequestProductsSuccessEvent* event)
 {
 #if ENABLE_VERBOSE_LOGGING
@@ -31,11 +34,11 @@ void RequestProductsOnSuccess(s3eRequestProductsSuccessEvent* event)
 #endif
 	if (event)
 	{
-		std::vector<RazerSDK::Product> products;
+		vector<Product> products;
 		for (int index = 0; index < event->m_productsLength; ++index)
 		{
-			RazerSDK::ExtensionProduct eProduct = event->m_products[index];
-			RazerSDK::Product product;
+			ExtensionProduct eProduct = event->m_products[index];
+			Product product;
 			product.Copy(eProduct);
 			products.push_back(product);
 
@@ -96,7 +99,7 @@ s3eCallback ApplicationCallbacksRequestProducts::GetCancelEvent()
 	return (s3eCallback)RequestProductsOnCancel;
 }
 
-void ApplicationCallbacksRequestProducts::OnSuccess(const std::vector<RazerSDK::Product>& products)
+void ApplicationCallbacksRequestProducts::OnSuccess(const vector<Product>& products)
 {
 #if ENABLE_VERBOSE_LOGGING
 	IwTrace(DEFAULT, ("OnSuccess"));
@@ -112,7 +115,7 @@ void ApplicationCallbacksRequestProducts::OnSuccess(const std::vector<RazerSDK::
 	}
 }
 
-void ApplicationCallbacksRequestProducts::OnFailure(int errorCode, const std::string& errorMessage)
+void ApplicationCallbacksRequestProducts::OnFailure(int errorCode, const string& errorMessage)
 {
 #if ENABLE_VERBOSE_LOGGING
 	char buffer[256];
@@ -120,7 +123,7 @@ void ApplicationCallbacksRequestProducts::OnFailure(int errorCode, const std::st
 	IwTrace(DEFAULT, (buffer));
 #endif
 	
-	std::string msg = "ApplicationCallbacksRequestProducts::OnFailure";
+	string msg = "ApplicationCallbacksRequestProducts::OnFailure";
 	msg.append(" errorMessage=");
 	msg.append(errorMessage);
 	Application::s_ui.SetMessage(msg);

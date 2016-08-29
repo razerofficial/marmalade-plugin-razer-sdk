@@ -30,6 +30,9 @@
 #endif
 #define ENABLE_VERBOSE_LOGGING false
 
+using namespace RazerSDK;
+using namespace std;
+
 void RequestGamerInfoOnSuccess(s3eRequestGamerInfoSuccessEvent* event)
 {
 #if ENABLE_VERBOSE_LOGGING
@@ -46,7 +49,7 @@ void RequestGamerInfoOnSuccess(s3eRequestGamerInfoSuccessEvent* event)
 #endif
 
 
-		RazerSDK::GamerInfo gamerInfo;
+		GamerInfo gamerInfo;
 		gamerInfo.Copy(event->m_gamerInfo);
 
 		Application::s_ui.m_callbacksRequestGamerInfo->OnSuccess(gamerInfo);
@@ -102,7 +105,7 @@ s3eCallback ApplicationCallbacksRequestGamerInfo::GetCancelEvent()
 	return (s3eCallback)RequestGamerInfoOnCancel;
 }
 
-void ApplicationCallbacksRequestGamerInfo::OnSuccess(const RazerSDK::GamerInfo& gamerInfo)
+void ApplicationCallbacksRequestGamerInfo::OnSuccess(const GamerInfo& gamerInfo)
 {
 #if ENABLE_VERBOSE_LOGGING
 	IwTrace(DEFAULT, ("ApplicationCallbacksRequestGamerInfo::OnSuccess: username="));
@@ -117,7 +120,7 @@ void ApplicationCallbacksRequestGamerInfo::OnSuccess(const RazerSDK::GamerInfo& 
 	Application::s_ui.SetGamerUUID(gamerInfo.Uuid);
 }
 
-void ApplicationCallbacksRequestGamerInfo::OnFailure(int errorCode, const std::string& errorMessage)
+void ApplicationCallbacksRequestGamerInfo::OnFailure(int errorCode, const string& errorMessage)
 {
 #if ENABLE_VERBOSE_LOGGING
 	IwTrace(DEFAULT, ("OnFailure"));
@@ -127,7 +130,7 @@ void ApplicationCallbacksRequestGamerInfo::OnFailure(int errorCode, const std::s
 	IwTrace(DEFAULT, (buffer));
 #endif
 
-	std::string msg = "ApplicationCallbacksRequestGamerInfo::OnFailure";
+	string msg = "ApplicationCallbacksRequestGamerInfo::OnFailure";
 	msg.append(" errorMessage=");
 	msg.append(errorMessage);
 	Application::s_ui.SetMessage(msg);

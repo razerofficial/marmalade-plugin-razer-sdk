@@ -22,6 +22,9 @@
 
 #include <stdio.h>
 
+using namespace RazerSDK;
+using namespace std;
+
 void RequestPurchaseOnSuccess(s3eRequestPurchaseSuccessEvent* event)
 {
 #if ENABLE_VERBOSE_LOGGING
@@ -29,8 +32,8 @@ void RequestPurchaseOnSuccess(s3eRequestPurchaseSuccessEvent* event)
 #endif
 	if (event)
 	{
-		RazerSDK::ExtensionPurchaseResult ePurchaseResult = event->m_purchaseResult;
-		RazerSDK::PurchaseResult purchaseResult;
+		ExtensionPurchaseResult ePurchaseResult = event->m_purchaseResult;
+		PurchaseResult purchaseResult;
 		purchaseResult.Init();
 		purchaseResult.Copy(ePurchaseResult);
 
@@ -87,19 +90,19 @@ s3eCallback ApplicationCallbacksRequestPurchase::GetCancelEvent()
 	return (s3eCallback)RequestPurchaseOnCancel;
 }
 
-void ApplicationCallbacksRequestPurchase::OnSuccess(const RazerSDK::PurchaseResult& purchaseResult)
+void ApplicationCallbacksRequestPurchase::OnSuccess(const PurchaseResult& purchaseResult)
 {
 #if ENABLE_VERBOSE_LOGGING
 	IwTrace(DEFAULT, ("OnSuccess"));
 #endif
 
-	std::string message = "ApplicationCallbacksRequestPurchase::OnSuccess: ";
+	string message = "ApplicationCallbacksRequestPurchase::OnSuccess: ";
 	message.append(purchaseResult.Identifier);
 
 	Application::s_ui.SetMessage(message);
 }
 
-void ApplicationCallbacksRequestPurchase::OnFailure(int errorCode, const std::string& errorMessage)
+void ApplicationCallbacksRequestPurchase::OnFailure(int errorCode, const string& errorMessage)
 {
 #if ENABLE_VERBOSE_LOGGING
 	char buffer[256];
@@ -107,7 +110,7 @@ void ApplicationCallbacksRequestPurchase::OnFailure(int errorCode, const std::st
 	IwTrace(DEFAULT, (buffer));
 #endif
 	
-	std::string msg = "ApplicationCallbacksRequestPurchase::OnFailure";
+	string msg = "ApplicationCallbacksRequestPurchase::OnFailure";
 	msg.append(" errorMessage=");
 	msg.append(errorMessage);
 	Application::s_ui.SetMessage(msg);
