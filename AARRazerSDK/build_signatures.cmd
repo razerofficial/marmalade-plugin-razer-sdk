@@ -9,6 +9,7 @@ javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksContentSearchInstalle
 javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksContentSearchPublished > ..\..\..\..\..\CallbacksContentSearchPublished.txt
 javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksContentUnpublish > ..\..\..\..\..\CallbacksContentUnpublish.txt
 javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksInitPlugin > ..\..\..\..\..\CallbacksInitPlugin.txt
+javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksRequestLogin > ..\..\..\..\..\CallbacksRequestLogin.txt
 javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksRequestGamerInfo > ..\..\..\..\..\CallbacksRequestGamerInfo.txt
 javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksRequestProducts > ..\..\..\..\..\CallbacksRequestProducts.txt
 javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksRequestPurchase > ..\..\..\..\..\CallbacksRequestPurchase.txt
@@ -16,7 +17,6 @@ javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksRequestReceipts > ..\
 javap -s com.razerzone.store.sdk.engine.marmalade.CallbacksShutdown > ..\..\..\..\..\CallbacksShutdown.txt
 javap -s com.razerzone.store.sdk.engine.marmalade.DebugInput > ..\..\..\..\..\DebugInput.txt
 javap -s com.razerzone.store.sdk.engine.marmalade.InputView > ..\..\..\..\..\InputView.txt
-javap -s com.razerzone.store.sdk.engine.marmalade.OnGameActivityListener > ..\..\..\..\..\OnGameActivityListener.txt
 javap -s com.razerzone.store.sdk.engine.marmalade.Plugin > ..\..\..\..\..\Plugin.txt
 javap -s com.razerzone.store.sdk.engine.marmalade.StoreFacadeWrapper > ..\..\..\..\..\StoreFacadeWrapper.txt
 

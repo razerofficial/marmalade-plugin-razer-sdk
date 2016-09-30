@@ -59,6 +59,11 @@ static void Plugin_initPlugin_wrap(const char* secretApiKey, s3eCallback onSucce
     IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK func on main thread: Plugin_initPlugin"));
     s3eEdkThreadRunOnOS((s3eEdkThreadFunc)Plugin_initPlugin, 3, secretApiKey, onSuccess, onFailure);
 }
+static void Plugin_requestLogin_wrap(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)
+{
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK func on main thread: Plugin_requestLogin"));
+    s3eEdkThreadRunOnOS((s3eEdkThreadFunc)Plugin_requestLogin, 3, onSuccess, onFailure, onCancel);
+}
 static void Plugin_requestGamerInfo_wrap(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)
 {
     IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK func on main thread: Plugin_requestGamerInfo"));
@@ -133,6 +138,8 @@ static const char* Plugin_JSONArray_ToString_wrap(int jsonArray)
 
 #define Plugin_initPlugin Plugin_initPlugin_wrap
 
+#define Plugin_requestLogin Plugin_requestLogin_wrap
+
 #define Plugin_requestGamerInfo Plugin_requestGamerInfo_wrap
 
 #define Plugin_requestProducts Plugin_requestProducts_wrap
@@ -163,7 +170,7 @@ static const char* Plugin_JSONArray_ToString_wrap(int jsonArray)
 void RazerSDKRegisterExt()
 {
     /* fill in the function pointer struct for this extension */
-    void* funcPtrs[19];
+    void* funcPtrs[20];
     funcPtrs[0] = (void*)Plugin_getAxis;
     funcPtrs[1] = (void*)Plugin_isPressed;
     funcPtrs[2] = (void*)Plugin_isPressedDown;
@@ -171,23 +178,24 @@ void RazerSDKRegisterExt()
     funcPtrs[4] = (void*)Plugin_clearButtonStates;
     funcPtrs[5] = (void*)Plugin_getDeviceName;
     funcPtrs[6] = (void*)Plugin_initPlugin;
-    funcPtrs[7] = (void*)Plugin_requestGamerInfo;
-    funcPtrs[8] = (void*)Plugin_requestProducts;
-    funcPtrs[9] = (void*)Plugin_requestPurchase;
-    funcPtrs[10] = (void*)Plugin_requestReceipts;
-    funcPtrs[11] = (void*)Plugin_shutdown;
-    funcPtrs[12] = (void*)Plugin_JSONObject_Construct;
-    funcPtrs[13] = (void*)Plugin_JSONObject_Put;
-    funcPtrs[14] = (void*)Plugin_JSONObject_ToString;
-    funcPtrs[15] = (void*)Plugin_JSONArray_Construct;
-    funcPtrs[16] = (void*)Plugin_JSONArray_Put;
-    funcPtrs[17] = (void*)Plugin_JSONArray_PutString;
-    funcPtrs[18] = (void*)Plugin_JSONArray_ToString;
+    funcPtrs[7] = (void*)Plugin_requestLogin;
+    funcPtrs[8] = (void*)Plugin_requestGamerInfo;
+    funcPtrs[9] = (void*)Plugin_requestProducts;
+    funcPtrs[10] = (void*)Plugin_requestPurchase;
+    funcPtrs[11] = (void*)Plugin_requestReceipts;
+    funcPtrs[12] = (void*)Plugin_shutdown;
+    funcPtrs[13] = (void*)Plugin_JSONObject_Construct;
+    funcPtrs[14] = (void*)Plugin_JSONObject_Put;
+    funcPtrs[15] = (void*)Plugin_JSONObject_ToString;
+    funcPtrs[16] = (void*)Plugin_JSONArray_Construct;
+    funcPtrs[17] = (void*)Plugin_JSONArray_Put;
+    funcPtrs[18] = (void*)Plugin_JSONArray_PutString;
+    funcPtrs[19] = (void*)Plugin_JSONArray_ToString;
 
     /*
      * Flags that specify the extension's use of locking and stackswitching
      */
-    int flags[19] = { 0 };
+    int flags[20] = { 0 };
 
     /*
      * Register the extension

@@ -76,6 +76,7 @@ if {{defined S3E_ANDROID}}
 		RazerSDK_Bundle.cpp
 		RazerSDK_CallbackSingleton.cpp
 		RazerSDK_CallbacksInitPlugin.cpp
+		RazerSDK_CallbacksRequestLogin.cpp
 		RazerSDK_CallbacksRequestGamerInfo.cpp
 		RazerSDK_CallbacksRequestProducts.cpp
 		RazerSDK_CallbacksRequestPurchase.cpp

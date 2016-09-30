@@ -27,6 +27,7 @@ class CallbacksContentSearchInstalled;
 class CallbacksContentSearchPublished;
 class CallbacksContentUnpublish;
 class CallbacksInitPlugin;
+class CallbacksRequestLogin;
 class CallbacksRequestGamerInfo;
 class CallbacksRequestProducts;
 class CallbacksRequestPurchase;
@@ -57,6 +58,7 @@ namespace RazerSDK
 		CallbacksContentSearchPublished* m_callbacksContentSearchPublished;
 		CallbacksContentUnpublish* m_callbacksContentUnpublish;
 		CallbacksInitPlugin* m_callbacksInitPlugin;
+		CallbacksRequestLogin* m_callbacksRequestLogin;
 		CallbacksRequestGamerInfo* m_callbacksRequestGamerInfo;
 		CallbacksRequestProducts* m_callbacksRequestProducts;
 		CallbacksRequestPurchase* m_callbacksRequestPurchase;

@@ -17,6 +17,7 @@
 #include "RazerSDK_Bundle.h"
 #include "RazerSDK_CallbackSingleton.h"
 #include "RazerSDK_CallbacksInitPlugin.h"
+#include "RazerSDK_CallbacksRequestLogin.h"
 #include "RazerSDK_CallbacksRequestGamerInfo.h"
 #include "RazerSDK_CallbacksRequestProducts.h"
 #include "RazerSDK_CallbacksRequestPurchase.h"
@@ -69,6 +70,7 @@ namespace RazerSDK
 		m_callbacksContentSearchPublished = NULL;
 		m_callbacksContentUnpublish = NULL;
 		m_callbacksInitPlugin = NULL;
+		m_callbacksRequestLogin = NULL;
 		m_callbacksRequestGamerInfo = NULL;
 		m_callbacksRequestProducts = NULL;
 		m_callbacksRequestPurchase = NULL;
@@ -137,6 +139,76 @@ extern "C" {
 #endif
 	}
 
+	/// CallbacksRequestLogin
+
+	//com.ODK.CallbacksRequestLogin.CallbacksRequestLoginOnSuccess
+	JNIEXPORT void JNICALL Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnSuccess(JNIEnv* env, jobject thiz)
+	{
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "***********Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnSuccess***********");
+#endif
+
+		CallbacksRequestLogin* callback = CallbackSingleton::GetInstance()->m_callbacksRequestLogin;
+		if (callback)
+		{
+			callback->OnSuccess();
+		}
+#if ENABLE_VERBOSE_LOGGING
+		else
+		{
+			__android_log_print(ANDROID_LOG_WARN, LOG_TAG, "CallbacksRequestLogin is not set");
+		}
+#endif
+	}
+
+	JNIEXPORT void JNICALL Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnFailure(JNIEnv* env, jobject thiz, jint errorCode, jstring errorMessage)
+	{
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "***********Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnFailure***********");
+#endif
+
+		std::string strErrorMessage = env->GetStringUTFChars(errorMessage, NULL);
+
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnFailure: Returned to C: %d %s", errorCode, strErrorMessage.c_str());
+#endif
+
+		CallbacksRequestLogin* callback = CallbackSingleton::GetInstance()->m_callbacksRequestLogin;
+		if (callback)
+		{
+			callback->OnFailure(errorCode, strErrorMessage);
+		}
+#if ENABLE_VERBOSE_LOGGING
+		else
+		{
+			__android_log_print(ANDROID_LOG_WARN, LOG_TAG, "CallbacksRequestLogin is not set");
+		}
+#endif
+	}
+
+	JNIEXPORT void JNICALL Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnCancel(JNIEnv* env, jobject thiz)
+	{
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "***********Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnCancel***********");
+#endif
+
+#if ENABLE_VERBOSE_LOGGING
+		__android_log_print(ANDROID_LOG_VERBOSE, LOG_TAG, "Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnCancel: Returned to C");
+#endif
+
+		CallbacksRequestLogin* callback = CallbackSingleton::GetInstance()->m_callbacksRequestLogin;
+		if (callback)
+		{
+			callback->OnCancel();
+		}
+#if ENABLE_VERBOSE_LOGGING
+		else
+		{
+			__android_log_print(ANDROID_LOG_WARN, LOG_TAG, "CallbacksRequestLogin is not set");
+		}
+#endif
+	}
+	
 	/// CallbacksRequestGamerInfo
 
 	//com.ODK.CallbacksRequestGamerInfo.CallbacksRequestGamerInfoOnSuccess
@@ -642,6 +714,14 @@ JNINativeMethod g_nativeCallbacksInitPluginOnSuccess;
 JNINativeMethod g_nativeCallbacksInitPluginOnFailure;
 
 //
+// Native Callbacks for RequestLogin
+//
+
+JNINativeMethod g_nativeCallbacksRequestLoginOnSuccess;
+JNINativeMethod g_nativeCallbacksRequestLoginOnFailure;
+JNINativeMethod g_nativeCallbacksRequestLoginOnCancel;
+
+//
 // Native Callbacks for RequestGamerInfo
 //
 
@@ -753,6 +833,26 @@ RegisterNativeMethod(env, "CallbacksInitPluginOnFailure",
 		"com/razerzone/store/sdk/engine/marmalade/CallbacksInitPlugin", "(ILjava/lang/String;)V",
 		(void*) &Java_com_razerzone_store_sdk_engine_marmalade_CallbacksInitPlugin_CallbacksInitPluginOnFailure,
 		&g_nativeCallbacksInitPluginOnFailure);
+
+//
+// Register Native Callbacks for RequestLogin
+//
+
+RegisterNativeMethod(env, "CallbacksRequestLoginOnSuccess",
+		"com/razerzone/store/sdk/engine/marmalade/CallbacksRequestLogin", "()V",
+		(void*) &Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnSuccess,
+		&g_nativeCallbacksRequestLoginOnSuccess);
+
+RegisterNativeMethod(env, "CallbacksRequestLoginOnFailure",
+		"com/razerzone/store/sdk/engine/marmalade/CallbacksRequestLogin",
+		"(ILjava/lang/String;)V",
+		(void*) &Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnFailure,
+		&g_nativeCallbacksRequestLoginOnFailure);
+
+RegisterNativeMethod(env, "CallbacksRequestLoginOnCancel",
+		"com/razerzone/store/sdk/engine/marmalade/CallbacksRequestLogin", "()V",
+		(void*) &Java_com_razerzone_store_sdk_engine_marmalade_CallbacksRequestLogin_CallbacksRequestLoginOnCancel,
+		&g_nativeCallbacksRequestLoginOnCancel);
 
 //
 // Register Native Callbacks for RequestGamerInfo

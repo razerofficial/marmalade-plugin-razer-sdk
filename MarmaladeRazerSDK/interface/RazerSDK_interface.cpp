@@ -206,9 +206,29 @@ void Plugin_initPlugin(const char* secretApiKey, s3eCallback onSuccess, s3eCallb
     return;
 }
 
+void Plugin_requestLogin(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)
+{
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[7] func: Plugin_requestLogin"));
+
+    if (!_extLoad())
+        return;
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallStart(S3E_TRUE, (void*)g_Ext.m_Plugin_requestLogin);
+#endif
+
+    g_Ext.m_Plugin_requestLogin(onSuccess, onFailure, onCancel);
+
+#ifdef LOADER_CALL_LOCK
+    s3eDeviceLoaderCallDone(S3E_TRUE, (void*)g_Ext.m_Plugin_requestLogin);
+#endif
+
+    return;
+}
+
 void Plugin_requestGamerInfo(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[7] func: Plugin_requestGamerInfo"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[8] func: Plugin_requestGamerInfo"));
 
     if (!_extLoad())
         return;
@@ -228,7 +248,7 @@ void Plugin_requestGamerInfo(s3eCallback onSuccess, s3eCallback onFailure, s3eCa
 
 void Plugin_requestProducts(const char* productsJson, s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[8] func: Plugin_requestProducts"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[9] func: Plugin_requestProducts"));
 
     if (!_extLoad())
         return;
@@ -248,7 +268,7 @@ void Plugin_requestProducts(const char* productsJson, s3eCallback onSuccess, s3e
 
 void Plugin_requestPurchase(const char* purchasable, const char* productType, s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[9] func: Plugin_requestPurchase"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[10] func: Plugin_requestPurchase"));
 
     if (!_extLoad())
         return;
@@ -268,7 +288,7 @@ void Plugin_requestPurchase(const char* purchasable, const char* productType, s3
 
 void Plugin_requestReceipts(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[10] func: Plugin_requestReceipts"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[11] func: Plugin_requestReceipts"));
 
     if (!_extLoad())
         return;
@@ -288,7 +308,7 @@ void Plugin_requestReceipts(s3eCallback onSuccess, s3eCallback onFailure, s3eCal
 
 void Plugin_shutdown(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[11] func: Plugin_shutdown"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[12] func: Plugin_shutdown"));
 
     if (!_extLoad())
         return;
@@ -308,7 +328,7 @@ void Plugin_shutdown(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback o
 
 int Plugin_JSONObject_Construct()
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[12] func: Plugin_JSONObject_Construct"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[13] func: Plugin_JSONObject_Construct"));
 
     if (!_extLoad())
         return false;
@@ -328,7 +348,7 @@ int Plugin_JSONObject_Construct()
 
 void Plugin_JSONObject_Put(int jsonObject, const char* name, const char* value)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[13] func: Plugin_JSONObject_Put"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[14] func: Plugin_JSONObject_Put"));
 
     if (!_extLoad())
         return;
@@ -348,7 +368,7 @@ void Plugin_JSONObject_Put(int jsonObject, const char* name, const char* value)
 
 const char* Plugin_JSONObject_ToString(int jsonObject)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[14] func: Plugin_JSONObject_ToString"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[15] func: Plugin_JSONObject_ToString"));
 
     if (!_extLoad())
         return false;
@@ -368,7 +388,7 @@ const char* Plugin_JSONObject_ToString(int jsonObject)
 
 int Plugin_JSONArray_Construct()
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[15] func: Plugin_JSONArray_Construct"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[16] func: Plugin_JSONArray_Construct"));
 
     if (!_extLoad())
         return false;
@@ -388,7 +408,7 @@ int Plugin_JSONArray_Construct()
 
 void Plugin_JSONArray_Put(int jsonArray, int index, int jsonObject)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[16] func: Plugin_JSONArray_Put"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[17] func: Plugin_JSONArray_Put"));
 
     if (!_extLoad())
         return;
@@ -408,7 +428,7 @@ void Plugin_JSONArray_Put(int jsonArray, int index, int jsonObject)
 
 void Plugin_JSONArray_PutString(int jsonArray, int index, const char* item)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[17] func: Plugin_JSONArray_PutString"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[18] func: Plugin_JSONArray_PutString"));
 
     if (!_extLoad())
         return;
@@ -428,7 +448,7 @@ void Plugin_JSONArray_PutString(int jsonArray, int index, const char* item)
 
 const char* Plugin_JSONArray_ToString(int jsonArray)
 {
-    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[18] func: Plugin_JSONArray_ToString"));
+    IwTrace(RAZERSDK_VERBOSE, ("calling RazerSDK[19] func: Plugin_JSONArray_ToString"));
 
     if (!_extLoad())
         return false;

@@ -12,6 +12,7 @@ typedef       bool(*Plugin_isPressedUp_t)(int deviceId, int keyCode);
 typedef       void(*Plugin_clearButtonStates_t)();
 typedef const char*(*Plugin_getDeviceName_t)(int playerNum);
 typedef       void(*Plugin_initPlugin_t)(const char* secretApiKey, s3eCallback onSuccess, s3eCallback onFailure);
+typedef       void(*Plugin_requestLogin_t)(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel);
 typedef       void(*Plugin_requestGamerInfo_t)(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel);
 typedef       void(*Plugin_requestProducts_t)(const char* productsJson, s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel);
 typedef       void(*Plugin_requestPurchase_t)(const char* purchasable, const char* productType, s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel);
@@ -37,6 +38,7 @@ typedef struct RazerSDKFuncs
     Plugin_clearButtonStates_t m_Plugin_clearButtonStates;
     Plugin_getDeviceName_t m_Plugin_getDeviceName;
     Plugin_initPlugin_t m_Plugin_initPlugin;
+    Plugin_requestLogin_t m_Plugin_requestLogin;
     Plugin_requestGamerInfo_t m_Plugin_requestGamerInfo;
     Plugin_requestProducts_t m_Plugin_requestProducts;
     Plugin_requestPurchase_t m_Plugin_requestPurchase;

@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2012-2015 OUYA, Inc.
+ * Copyright (C) 2012-2016 Razer, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -50,7 +50,10 @@ public class StoreFacadeWrapper
 	// listener for init complete
 	private CancelIgnoringResponseListener<Bundle> mInitCompleteListener = null;
 
-	// listener for fetching gamer info
+	// listener for requesting login
+	private ResponseListener<Void> mRequestLoginListener = null;
+
+	// listener for requesting gamer info
 	private ResponseListener<GamerInfo> mRequestGamerInfoListener = null;
 
 	// listener for getting products
@@ -145,9 +148,34 @@ public class StoreFacadeWrapper
             }
         };
 
-        mStoreFacade.registerInitCompletedListener(mInitCompleteListener);
+		mRequestLoginListener = new ResponseListener<Void>() {
+			@Override
+			public void onSuccess(Void result) {
 
-        mRequestGamerInfoListener = new CancelIgnoringResponseListener<GamerInfo>() {
+				if (sEnableLogging) {
+					Log.d(TAG, "RequestLoginListener: onSuccess");
+				}
+
+				Plugin.getCallbacksRequestLogin().onSuccess();
+			}
+
+			@Override
+			public void onFailure(int errorCode, String errorMessage, Bundle optionalData) {
+				Log.e(TAG, "RequestLoginListener: onFailure errorCode="+errorCode+" errorMessage="+errorMessage);
+				Plugin.getCallbacksRequestLogin().onFailure(errorCode, errorMessage);
+			}
+
+			@Override
+			public void onCancel() {
+				if (sEnableLogging) {
+					Log.d(TAG, "RequestLoginListener: onCancel");
+				}
+
+				Plugin.getCallbacksRequestLogin().onCancel();
+			}
+		};
+
+        mRequestGamerInfoListener = new ResponseListener<GamerInfo>() {
             @Override
             public void onSuccess(GamerInfo info) {
 
@@ -170,6 +198,15 @@ public class StoreFacadeWrapper
             public void onFailure(int errorCode, String errorMessage, Bundle optionalData) {
 				Log.e(TAG, "RequestGamerInfoListener: onFailure errorCode="+errorCode+" errorMessage="+errorMessage);
 				Plugin.getCallbacksRequestGamerInfo().onFailure(errorCode, errorMessage);
+            }
+
+            @Override
+            public void onCancel() {
+                if (sEnableLogging) {
+                    Log.d(TAG, "RequestGamerInfoListener: onCancel");
+                }
+
+                Plugin.getCallbacksRequestGamerInfo().onCancel();
             }
         };
 
@@ -246,6 +283,7 @@ public class StoreFacadeWrapper
 					JSONObject json = new JSONObject();
 					try {
 						json.put("identifier", result.getProductIdentifier());
+                        json.put("ownerId", result.getOrderId());
 					} catch (JSONException e1) {
 					}
 					String jsonData = json.toString();
@@ -344,7 +382,7 @@ public class StoreFacadeWrapper
         };
 
         try {
-            mStoreFacade.init(activity, developerInfo);
+            mStoreFacade.init(activity, developerInfo, mInitCompleteListener);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -534,6 +572,21 @@ public class StoreFacadeWrapper
 			Log.e(TAG, "mRequestProductsListener is null");
 		}
 	}
+
+    public void requestLogin() {
+        if (sEnableLogging) {
+            Log.d(TAG, "requestLogin");
+        }
+        if (null == mStoreFacade) {
+            Log.e(TAG, "requestLogin: StoreFacade is null!");
+            return;
+        }
+        if (null != mRequestLoginListener) {
+            mStoreFacade.requestLogin(Plugin.getActivity(), mRequestLoginListener);
+        } else {
+            Log.e(TAG, "StoreFacadeWrapper.requestLogin mRequestLoginListener is null");
+        }
+    }
 
 	public void requestGamerInfo() {
 		if (sEnableLogging) {

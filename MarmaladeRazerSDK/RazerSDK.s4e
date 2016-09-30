@@ -9,9 +9,12 @@ include:
 typedef enum s3eRazerSdkFnCallbackType {
 	S3E_RAZERSDK_CALLBACKS_INIT_PLUGIN_ON_SUCCESS,
 	S3E_RAZERSDK_CALLBACKS_INIT_PLUGIN_ON_FAILURE,
+	S3E_RAZERSDK_CALLBACKS_REQUEST_LOGIN_ON_SUCCESS,
+	S3E_RAZERSDK_CALLBACKS_REQUEST_LOGIN_ON_FAILURE,
+	S3E_RAZERSDK_CALLBACKS_REQUEST_LOGIN_ON_CANCEL,
 	S3E_RAZERSDK_CALLBACKS_REQUEST_GAMER_INFO_ON_SUCCESS,
 	S3E_RAZERSDK_CALLBACKS_REQUEST_GAMER_INFO_ON_FAILURE,
-	S3E_RAZERSDK_CALLBACKS_REQUEST_GAMER_INFO_ON_CANCEL,    
+	S3E_RAZERSDK_CALLBACKS_REQUEST_GAMER_INFO_ON_CANCEL,
 	S3E_RAZERSDK_CALLBACKS_REQUEST_PRODUCTS_ON_SUCCESS,
 	S3E_RAZERSDK_CALLBACKS_REQUEST_PRODUCTS_ON_FAILURE,
 	S3E_RAZERSDK_CALLBACKS_REQUEST_PRODUCTS_ON_CANCEL,
@@ -38,6 +41,7 @@ void Plugin_clearButtonStates() false run_on_os_thread
 const char* Plugin_getDeviceName(int playerNum) false run_on_os_thread
 
 void Plugin_initPlugin(const char* secretApiKey, s3eCallback onSuccess, s3eCallback onFailure) false run_on_os_thread
+void Plugin_requestLogin(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel) false run_on_os_thread
 void Plugin_requestGamerInfo(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel) false run_on_os_thread
 void Plugin_requestProducts(const char* productsJson, s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel) false run_on_os_thread
 void Plugin_requestPurchase(const char* purchasable, const char* productType, s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel) false run_on_os_thread

@@ -20,20 +20,21 @@ package com.razerzone.store.sdk.engine.marmalade;
 import android.util.Log;
 
 
-public class CallbacksShutdown {
+public class CallbacksRequestLogin {
 
-	private final String TAG  = CallbacksShutdown.class.getSimpleName();
+	private final String TAG  = CallbacksRequestLogin.class.getSimpleName();
 
 	private static final boolean sEnableLogging = false;
 
-	public native void CallbacksShutdownOnSuccess();
-	public native void CallbacksShutdownOnFailure(int errorCode, String errorMessage);
+	public native void CallbacksRequestLoginOnSuccess();
+	public native void CallbacksRequestLoginOnFailure(int errorCode, String errorMessage);
+	public native void CallbacksRequestLoginOnCancel();
 
 	public void onSuccess() {
 		if (sEnableLogging) {
-			Log.d(TAG, "onSuccess");
+			Log.d(TAG, "onSuccess:");
 		}
-		CallbacksShutdownOnSuccess();
+		CallbacksRequestLoginOnSuccess();
 	}
 
 	public void onFailure(final int errorCode, final String errorMessage) {
@@ -41,9 +42,16 @@ public class CallbacksShutdown {
 			Log.d(TAG, "onFailure: errorCode=" + errorCode + " errorMessage=" + errorMessage);
 		}
 		if (null == errorMessage) {
-			CallbacksShutdownOnFailure(errorCode, "");
+			CallbacksRequestLoginOnFailure(errorCode, "");
 		} else {
-			CallbacksShutdownOnFailure(errorCode, errorMessage);
+			CallbacksRequestLoginOnFailure(errorCode, errorMessage);
 		}
+	}
+
+	public void onCancel() {
+		if (sEnableLogging) {
+			Log.d(TAG, "onCancel");
+		}
+		CallbacksRequestLoginOnCancel();
 	}
 }

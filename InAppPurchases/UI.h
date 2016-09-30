@@ -31,6 +31,7 @@
 #include "IwGxFontTypes.h"
 
 class ApplicationCallbacksInitPlugin;
+class ApplicationCallbacksRequestLogin;
 class ApplicationCallbacksRequestGamerInfo;
 class ApplicationCallbacksRequestProducts;
 class ApplicationCallbacksRequestPurchase;
@@ -72,6 +73,7 @@ public:
 	static int32 PointerButtonEventCallback(s3ePointerEvent* pEvent, void* pUserData);
 	static int32 PointerMotionEventCallback(s3ePointerMotionEvent* pEvent, void* pUserData);
 
+	void DoRequestLogin();
 	void DoRequestGamerInfo();
 	void DoRequestProducts();
 	void DoRequestPurchase();
@@ -95,6 +97,7 @@ public:
 	void Exit();
 
 	ApplicationCallbacksInitPlugin* m_callbacksInitPlugin;
+	ApplicationCallbacksRequestLogin* m_callbacksRequestLogin;
 	ApplicationCallbacksRequestGamerInfo* m_callbacksRequestGamerInfo;
 	ApplicationCallbacksRequestProducts* m_callbacksRequestProducts;
 	ApplicationCallbacksRequestPurchase* m_callbacksRequestPurchase;
@@ -124,7 +127,8 @@ private:
 
 	bool m_uiChanged;
 
-	TextButton m_uiRequestGamerUUID;
+	TextButton m_uiRequestLogin;
+	TextButton m_uiRequestGamerInfo;
 	TextButton m_uiRequestProducts;
 	TextButton m_uiRequestReceipts;
 	TextButton m_uiShutdown;

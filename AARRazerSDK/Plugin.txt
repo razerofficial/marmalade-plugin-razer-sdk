@@ -54,6 +54,9 @@ public class com.razerzone.store.sdk.engine.marmalade.Plugin {
   public static com.razerzone.store.sdk.engine.marmalade.CallbacksInitPlugin getCallbacksInitPlugin();
     Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksInitPlugin;
 
+  public static com.razerzone.store.sdk.engine.marmalade.CallbacksRequestLogin getCallbacksRequestLogin();
+    Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksRequestLogin;
+
   public static com.razerzone.store.sdk.engine.marmalade.CallbacksRequestGamerInfo getCallbacksRequestGamerInfo();
     Signature: ()Lcom/razerzone/store/sdk/engine/marmalade/CallbacksRequestGamerInfo;
 
@@ -98,6 +101,9 @@ public class com.razerzone.store.sdk.engine.marmalade.Plugin {
 
   public static boolean processOnActivityResult(int, int, android.content.Intent);
     Signature: (IILandroid/content/Intent;)Z
+
+  public static void requestLogin();
+    Signature: ()V
 
   public static void requestGamerInfo();
     Signature: ()V

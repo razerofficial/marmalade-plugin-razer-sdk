@@ -25,6 +25,7 @@
 #include "RazerSDK_internal.h"
 #include "RazerSDK_CallbackSingleton.h"
 #include "RazerSDK_CallbacksInitPlugin.h"
+#include "RazerSDK_CallbacksRequestLogin.h"
 #include "RazerSDK_CallbacksRequestGamerInfo.h"
 #include "RazerSDK_CallbacksRequestProducts.h"
 #include "RazerSDK_CallbacksRequestPurchase.h"
@@ -76,6 +77,7 @@ static vector< map<int, bool> > g_lastButtonDown;
 static vector< map<int, bool> > g_lastButtonUp;
 
 static CallbacksInitPlugin g_callbacksInitPlugin;
+static CallbacksRequestLogin g_callbacksRequestLogin;
 static CallbacksRequestGamerInfo g_callbacksRequestGamerInfo;
 static CallbacksRequestProducts g_callbacksRequestProducts;
 static CallbacksRequestPurchase g_callbacksRequestPurchase;
@@ -342,6 +344,15 @@ void Plugin_initPlugin(const char* secretApiKey, s3eCallback onSuccess, s3eCallb
 	g_callbacksInitPlugin.RegisterCallbacks(onSuccess, onFailure);
 	
 	Plugin::initPlugin(secretApiKey, &g_callbacksInitPlugin);
+}
+
+void Plugin_requestLogin(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)
+{
+	IwTrace(RazerSDK, ("RazerSDK_platform: Plugin_requestLogin"));
+
+	g_callbacksRequestLogin.RegisterCallbacks(onSuccess, onFailure, onCancel);
+
+	Plugin::requestLogin(&g_callbacksRequestLogin);
 }
 
 void Plugin_requestGamerInfo(s3eCallback onSuccess, s3eCallback onFailure, s3eCallback onCancel)

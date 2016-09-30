@@ -16,6 +16,7 @@
 
 #include "Application.h"
 #include "ApplicationCallbacksInitPlugin.h"
+#include "ApplicationCallbacksRequestLogin.h"
 #include "ApplicationCallbacksRequestGamerInfo.h"
 #include "ApplicationCallbacksRequestProducts.h"
 #include "ApplicationCallbacksRequestPurchase.h"
@@ -61,6 +62,7 @@ UI::UI()
 	m_uiInitialized = false;
 
 	m_callbacksInitPlugin = new ApplicationCallbacksInitPlugin();
+	m_callbacksRequestLogin = new ApplicationCallbacksRequestLogin();
 	m_callbacksRequestGamerInfo = new ApplicationCallbacksRequestGamerInfo();
 	m_callbacksRequestProducts = new ApplicationCallbacksRequestProducts();
 	m_callbacksRequestPurchase = new ApplicationCallbacksRequestPurchase();
@@ -199,9 +201,12 @@ bool UI::InitUI()
 
 	int x = 200;
 	int y = 350;
-	m_uiRequestGamerUUID = TextButton(x, y, 450, 75, "Get GamerUUID");
+	m_uiRequestLogin = TextButton(x, y, 450, 75, "Login");
+
+	x += m_uiRequestLogin.GetWidth() + 50;
+	m_uiRequestGamerInfo = TextButton(x, y, 450, 75, "Get GamerInfo");
 	
-	x += m_uiRequestGamerUUID.GetWidth() + 50;
+	x += m_uiRequestGamerInfo.GetWidth() + 50;
 	m_uiRequestProducts = TextButton(x, y, 350, 75, "Get Products");
 
 	x += m_uiRequestProducts.GetWidth() + 50;
@@ -221,7 +226,8 @@ bool UI::InitUI()
 
 void UI::Destroy()
 {
-	m_uiRequestGamerUUID.Destroy();
+	m_uiRequestLogin.Destroy();
+	m_uiRequestGamerInfo.Destroy();
 	m_uiRequestProducts.Destroy();
 	m_uiRequestReceipts.Destroy();
 	m_uiShutdown.Destroy();
@@ -284,7 +290,8 @@ void UI::Render()
 	m_uiLabelGamerUuid.Render();
 	m_uiLabelMessage.Render();
 
-	m_uiRequestGamerUUID.Render();
+	m_uiRequestLogin.Render();
+	m_uiRequestGamerInfo.Render();
 	m_uiRequestProducts.Render();
 	m_uiRequestReceipts.Render();
 	m_uiShutdown.Render();
@@ -322,9 +329,15 @@ int32 UI::PointerButtonEventCallback(s3ePointerEvent* pEvent, void* pUserData)
 
 	if (!pEvent->m_Pressed)
 	{
-		if (s_instance->m_uiRequestGamerUUID.GetActive())
+		if (s_instance->m_uiRequestLogin.GetActive())
 		{
-			s_instance->m_uiRequestGamerUUID.SetActive(false);
+			s_instance->m_uiRequestLogin.SetActive(false);
+			s_instance->DoRequestLogin();
+		}
+
+		if (s_instance->m_uiRequestGamerInfo.GetActive())
+		{
+			s_instance->m_uiRequestGamerInfo.SetActive(false);
 			s_instance->DoRequestGamerInfo();
 		}
 
@@ -373,7 +386,8 @@ int32 UI::PointerMotionEventCallback(s3ePointerMotionEvent* pEvent, void* pUserD
 	msg << x << ", " << y;
 	s_instance->SetMessage(msg.str());
 
-	s_instance->m_uiRequestGamerUUID.CheckHover(x, y);
+	s_instance->m_uiRequestLogin.CheckHover(x, y);
+	s_instance->m_uiRequestGamerInfo.CheckHover(x, y);
 	s_instance->m_uiRequestProducts.CheckHover(x, y);
 	s_instance->m_uiRequestReceipts.CheckHover(x, y);
 	s_instance->m_uiShutdown.CheckHover(x, y);
@@ -386,9 +400,18 @@ int32 UI::PointerMotionEventCallback(s3ePointerMotionEvent* pEvent, void* pUserD
 	return 0;
 }
 
+void UI::DoRequestLogin()
+{
+	SetMessage("Request login...");
+	Plugin_requestLogin(
+		Application::s_ui.m_callbacksRequestLogin->GetSuccessEvent(),
+		Application::s_ui.m_callbacksRequestLogin->GetFailureEvent(),
+		Application::s_ui.m_callbacksRequestLogin->GetCancelEvent());
+}
+
 void UI::DoRequestGamerInfo()
 {
-	SetMessage("Fetching gamer uuid...");
+	SetMessage("Request gamer info...");
 	Plugin_requestGamerInfo(
 		Application::s_ui.m_callbacksRequestGamerInfo->GetSuccessEvent(),
 		Application::s_ui.m_callbacksRequestGamerInfo->GetFailureEvent(),

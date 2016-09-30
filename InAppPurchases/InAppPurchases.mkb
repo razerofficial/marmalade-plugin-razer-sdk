@@ -20,6 +20,8 @@ files
 	Application.cpp
 	ApplicationCallbacksInitPlugin.h
 	ApplicationCallbacksInitPlugin.cpp
+	ApplicationCallbacksRequestLogin.h
+	ApplicationCallbacksRequestLogin.cpp
 	ApplicationCallbacksRequestGamerInfo.h
 	ApplicationCallbacksRequestGamerInfo.cpp
 	ApplicationCallbacksRequestProducts.h

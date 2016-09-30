@@ -1,0 +1,23 @@
+Compiled from "CallbacksRequestLogin.java"
+public class com.razerzone.store.sdk.engine.marmalade.CallbacksRequestLogin {
+  public com.razerzone.store.sdk.engine.marmalade.CallbacksRequestLogin();
+    Signature: ()V
+
+  public native void CallbacksRequestLoginOnSuccess();
+    Signature: ()V
+
+  public native void CallbacksRequestLoginOnFailure(int, java.lang.String);
+    Signature: (ILjava/lang/String;)V
+
+  public native void CallbacksRequestLoginOnCancel();
+    Signature: ()V
+
+  public void onSuccess();
+    Signature: ()V
+
+  public void onFailure(int, java.lang.String);
+    Signature: (ILjava/lang/String;)V
+
+  public void onCancel();
+    Signature: ()V
+}
