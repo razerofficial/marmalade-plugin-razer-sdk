@@ -52,6 +52,8 @@ C:\Marmalade\8.5\s3e\bin\s3eConfig.exe
 
 * Download and install [JDK7](http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.html)
 
+* Note: The `JAVA_HOME` environment variable should be set to use `JDK7` with the path set to something similar to `c:\NVPACK\jdk1.7.0_71`. Setting `JAVA_HOME` requires a reboot.
+
 ## Examples 
 
 ### In-App-Purchase Example
