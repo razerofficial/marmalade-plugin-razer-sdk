@@ -281,7 +281,7 @@ The `RazerSDK::GamerInfo` object provides the `Username` and `Uuid` fields.
 
 The success event indicates success which also provides the gamer info.
 
-The failure event indicates a problem with error code and error message.
+The failure event indicates a problem with error code and error message. The failure event will fire if the user is not logged in.
 
 The cancel event indicates the user canceled the request.
 
@@ -379,7 +379,7 @@ void ApplicationCallbacksRequestProducts::OnCancel()
 
 ### RequestPurchase
 
-`Plugin_requestPurchase` initiates a purchase for the logged in user given the `identifier` and `product type`. The `product type` can be `ENTITLEMENT` or `CONSUMABLE`. This method should only be invoked after the `RazerSDK` has successfully initialized. Entitlements and consumables need to correspond to the items that were created in the [developer portal](https://devs.ouya.tv). 
+`Plugin_requestPurchase` initiates a purchase for the logged in user given the `identifier` and `product type`. The `product type` can be `ENTITLEMENT` or `CONSUMABLE`. This method should only be invoked after the `RazerSDK` has successfully initialized. Entitlements and consumables need to correspond to the items that were created in the [developer portal](https://devs.ouya.tv). The failure event will fire if the user is not logged in.
 
 The `RazerSDK::PurchaseResult` object provides the `Identifier` that was just purchased by the logged in user.
 
@@ -433,7 +433,7 @@ void ApplicationCallbacksRequestPurchase::OnCancel()
 
 ### RequestReceipts
 
-`Plugin_requestReceipts` returns all the `ENTITLEMENT` receipts for the logged in user. This method should only be invoked after the `RazerSDK` has successfully initialized. 
+`Plugin_requestReceipts` returns all the `ENTITLEMENT` receipts for the logged in user. This method should only be invoked after the `RazerSDK` has successfully initialized. The failure event will fire if the user is not logged in.
 
 The `RazerSDK::Receipt` object provides the `Identifier`, `LocalPrice`, and several other fields.
 
