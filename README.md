@@ -245,7 +245,7 @@ Invoking `Plugin_requestLogin` takes the success, failure, and cancel event call
 
 When the Marmalade RazerSDK has completed RequestLogin, it invokes the Application callback for onSuccess, onFailure, or onCancel.
 
-The success callback passes the gamer info, which is passed to the UI.
+The success callback indicates sign in completed successfully, which is passed to the UI.
 
 ```
 	void ApplicationCallbacksRequestLogin::OnSuccess()
