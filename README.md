@@ -94,6 +94,8 @@ Application.h/cpp - Holds an instance of the UI and the method to initialize the
 
 ApplicationCallbacksInitPlugin.h/cpp - Handles callbacks coming from extension to the application with the result of `InitPlugin`
 
+ApplicationCallbacksRequestLogin.h/cpp - Handles callbacks coming from extension to the application with the result of `RequestLogin`
+
 ApplicationCallbacksRequestGamerInfo.h/cpp - Handles callbacks coming from extension to the application with the result of `RequestGamerInfo`
 
 ApplicationCallbacksRequestProducts.h/cpp - Handles callbacks coming from extension to the application with the result of `RequestProducts`
@@ -220,6 +222,45 @@ The `Plugin_initPlugin` function takes a `const char*` parameter for the `Secret
 	Plugin_initPlugin(secretApiKey.c_str(),
 		Application::s_ui.m_callbacksInitPlugin->GetSuccessEvent(),
 		Application::s_ui.m_callbacksInitPlugin->GetFailureEvent());
+```
+
+### RequestLogin
+
+`Plugin_requestLogin` opens the login dialog to sign in the user. This method should only be invoked after the `RazerSDK` has successfully initialized.  The first parameter takes a pointer to a `s3eCallback` success event. The second parameter takes a pointer to a `s3eCallback` failure event. The third parameter takes a pointer to a `s3eCallback` cancel event. The success callback is invoked if the operation completes successfully. The failure callback is invoked if the operation failed. The cancel callback is invoked if the operation was canceled. The `s3eRequestLoginSuccessEvent` event indicates the user has signed in or the user was already signed in. The `s3eRequestLoginFailureEvent` event indicates there was a problem signing in. The `s3eRequestLoginCancelEvent` event indicates that the user canceled signing in.   
+
+The success event indicates success which indicates the user is logged in.
+
+The failure event indicates a problem with error code and error message.
+
+The cancel event indicates the user canceled the sign in process.
+
+Invoking `Plugin_requestLogin` takes the success, failure, and cancel event callbacks.
+
+```
+	Plugin_requestLogin(
+		Application::s_ui.m_callbacksRequestLogin->GetSuccessEvent(),
+		Application::s_ui.m_callbacksRequestLogin->GetFailureEvent(),
+		Application::s_ui.m_callbacksRequestLogin->GetCancelEvent());
+```
+
+When the Marmalade RazerSDK has completed RequestLogin, it invokes the Application callback for onSuccess, onFailure, or onCancel.
+
+The success callback passes the gamer info, which is passed to the UI.
+
+```
+	void ApplicationCallbacksRequestLogin::OnSuccess()
+```
+
+The failure callback passes an error code and string message about the failure, which is passed to the UI.
+
+```
+	void ApplicationCallbacksRequestLogin::OnFailure(int errorCode, const string& errorMessage)
+```
+
+The error callback indicates the user aborted the operation and the event name is passed to the UI.
+
+```
+	void ApplicationCallbacksRequestLogin::OnCancel()
 ```
 
 ### RequestGamerInfo
